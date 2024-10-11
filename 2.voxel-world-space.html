@@ -1,0 +1,586 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Voxel-space and World-space &#8212; Image Registration</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '2.voxel-world-space';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="0.intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Image Registration - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Image Registration - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="0.intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1.reg-problem.html">The Image Registration Problem</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F2.voxel-world-space.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/2.voxel-world-space.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Voxel-space and World-space</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-matrix-indices">Data Matrix Indices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#voxel-space">Voxel-space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#world-space">World-space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-different-spaces-in-spm">Viewing Different Spaces in SPM</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="voxel-space-and-world-space">
+<h1>Voxel-space and World-space<a class="headerlink" href="#voxel-space-and-world-space" title="Permalink to this heading">#</a></h1>
+<p>In the first part of this lesson we are going to be focusing on <em>spatial transformations</em>. We will spend more time discussing this form of image processing as spatial methods are relevant to a much wider variety of analysis steps. Spatial transformations are also where more errors will occur, and so warrant more of our attention.</p>
+<section id="data-matrix-indices">
+<h2>Data Matrix Indices<a class="headerlink" href="#data-matrix-indices" title="Permalink to this heading">#</a></h2>
+<p>We can conceptualise an MRI image as a 3D matrix (like a big cube), where we can refer to any voxel within the cube using an index along each dimension. Typically we refer to these dimensions as <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> corresponds to the <em>row</em>, <span class="math notranslate nohighlight">\(y\)</span> corresponds to the <em>column</em> and <span class="math notranslate nohighlight">\(z\)</span> corresponds to the <em>slice</em>. An index into an image is therefore a <em>triplet</em> of values that indicates how far along each of the dimensions we need to travel in order to find the value we want.</p>
+<p>As an example, the <code class="docutils literal notranslate"><span class="pre">MATLAB</span></code> code below shows the process of loading an image (which you can download from <a class="reference external" href="https://livemanchesterac.sharepoint.com/:u:/r/sites/UOM-FBMH-MSc-NCCN/Shared%20Documents/PCHN62141%20Functional%20Neuroanatomy/Learning%20Materials/Asynchronous/Week%204/2.%20Image%20Processing/Data/example_image.nii?csf=1&amp;amp;web=1&amp;amp;e=Haernk&amp;amp;download=1">here</a>) and then extracting a value using the voxel coordinates <span class="math notranslate nohighlight">\(x = 180\)</span>, <span class="math notranslate nohighlight">\(y = 180\)</span> and <span class="math notranslate nohighlight">\(z = 110\)</span>. This tells <code class="docutils literal notranslate"><span class="pre">MATLAB</span></code> that we want to travel <span class="math notranslate nohighlight">\(180\)</span> voxels along the <span class="math notranslate nohighlight">\(x\)</span> dimension, <span class="math notranslate nohighlight">\(180\)</span> voxels along the <span class="math notranslate nohighlight">\(y\)</span> dimension, <span class="math notranslate nohighlight">\(110\)</span> voxels along the <span class="math notranslate nohighlight">\(z\)</span> dimension and then extract the value found at that location.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">image</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">spm_data_read</span><span class="p">(</span><span class="s">&#39;example_image.nii&#39;</span><span class="p">);</span>
+<span class="n">voxel</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">image</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">110</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><html><body><pre>voxel = 347.0026</pre></body></html></div></div>
+</div>
+<p>Alternatively, we can think of the image more like a stack of cards, where we first extract the matrix at slice <span class="math notranslate nohighlight">\(110\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">slice</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">image</span><span class="p">(:,:,</span><span class="mi">110</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>and then find the value at row <span class="math notranslate nohighlight">\(180\)</span> and column <span class="math notranslate nohighlight">\(180\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">slice</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span><span class="mi">180</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><html><body><pre>ans = 347.0026</pre></body></html></div></div>
+</div>
+</section>
+<section id="voxel-space">
+<h2>Voxel-space<a class="headerlink" href="#voxel-space" title="Permalink to this heading">#</a></h2>
+<p>The approach of indexing the data matrix directly can be thought of as representing the image in <em>voxel-space</em>. This means that the voxels themselves form the coordinate system. The image dimensions are given in voxels, we index the image using voxel coordinates and the origin of the coordinate system is simply the first voxel saved in the image file.</p>
+<p>Of note is that the orientation of the image is based on the storage-order of the data on disk. This is usually dictated by the scanner and can differ from image to image. As such, there are no guarantees about which direction in the image correspond to which dimensions of the data matrix. For example, if we display a single slice of the example image we loaded above, we get</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">imagesc</span><span class="p">(</span><span class="nb">image</span><span class="p">(:,:,</span><span class="mi">110</span><span class="p">)</span><span class="o">&#39;</span><span class="p">);</span><span class="w"> </span><span class="c">% transpose so x = columns and y = rows</span>
+<span class="nb">set</span><span class="p">(</span><span class="nb">gca</span><span class="p">,</span><span class="s">&#39;YDir&#39;</span><span class="p">,</span><span class="s">&#39;normal&#39;</span><span class="p">);</span><span class="w"> </span><span class="c">% make sure y-axis is bottom -&gt; top</span>
+<span class="nb">colormap</span><span class="p">(</span><span class="s">&#39;gray&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/894b1e4aa13a5a09c2e6c1ce2c6992a9e558ad162693743f6b5bf4832a221a51.png" src="_images/894b1e4aa13a5a09c2e6c1ce2c6992a9e558ad162693743f6b5bf4832a221a51.png" />
+</div>
+</div>
+<p>Here, we are displaying the <span class="math notranslate nohighlight">\(x\)</span>-axis and <span class="math notranslate nohighlight">\(y\)</span>-axis of the image with the <span class="math notranslate nohighlight">\(z\)</span>-axis fixed at slice 110 (i.e. <code class="docutils literal notranslate"><span class="pre">image(:,:,110)</span></code>). We orient the image so that the <span class="math notranslate nohighlight">\(x\)</span>-axis runs horizontally and the <span class="math notranslate nohighlight">\(y\)</span>-axis runs vertically. From this, we can see that the <span class="math notranslate nohighlight">\(x\)</span>-axis corresponds to anterior-posterior, the <span class="math notranslate nohighlight">\(y\)</span>-axis corresponds to inferior-superior and the slices through <span class="math notranslate nohighlight">\(z\)</span> run left-right. This goes against the typical convention in neuroimaging, as we will see below, but is entirely determined by how the scanner chooses to collect and save the data.</p>
+<p><code class="xref std std-numref docutils literal notranslate"><span class="pre">voxel-space-fig</span></code> gives another example using a functional image displayed in voxel-space. This time, in order to achieve the same orientation as the anatomical example, we have to slice along the <span class="math notranslate nohighlight">\(x\)</span>-axis of the image. As such, the <span class="math notranslate nohighlight">\(x\)</span>-axis is fixed at slice 40, with the <span class="math notranslate nohighlight">\(y\)</span>-axis displayed horizontally and the <span class="math notranslate nohighlight">\(z\)</span>-axis displayed vertically. This highlights not only how the orientation depends upon the storage order, but also how the axes of the <em>display</em> and the axes of the <em>image</em> are two different concepts.</p>
+<figure class="align-default" id="voxel-space-fig">
+<a class="reference internal image-reference" href="_images/voxel-space-func.png"><img alt="_images/voxel-space-func.png" src="_images/voxel-space-func.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-text">Example of a functional slice displayed in voxel-space.</span><a class="headerlink" href="#voxel-space-fig" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Voxel-space is the most basic coordinate system we can use with an image and is the only way we can index the actual values inside the data matrix. This means that no matter what we do, we always need to get back to voxel-space eventually. However, this does not mean that we have to work in voxel-space exclusively.</p>
+</section>
+<section id="world-space">
+<h2>World-space<a class="headerlink" href="#world-space" title="Permalink to this heading">#</a></h2>
+<p>As mentioned already, one issue with the voxel-space representation is that we have no correspondence between the dimensions of the data matrix and the different physical directions in an image. For instance, the anatomical example from above had the <span class="math notranslate nohighlight">\(x\)</span>-dimension running <em>anterior-posterior</em>, whereas as the functional example has the <span class="math notranslate nohighlight">\(x\)</span>-dimension running <em>left-right</em>. Another issue is that a voxel is not a standard unit of measurement and can be a variety of sizes depending on the scanning sequence. If you say that an image of an object is 100 voxels wide, that information says nothing about how big that object is in the real world. As such, a coordinate systems based on voxels is only useful when our image processing does not need to know about the physical location of the voxels in space. Generally speaking, most filtering operations can be performed in voxel-space, but any spatial transformations need more knowledge about the physical sizes of voxels as well as the physical interpretation of the image dimensions.</p>
+<p>In order to get information about the physical location of a voxel in space, we can convert the voxel coordinates to millimetre coordinates. We will cover how this is done later in the lesson, but for now just note that by doing this we effectively transform the coordinate system of the image into a real-world representation. Traditionally, we consider the <span class="math notranslate nohighlight">\(x\)</span>-dimension to refer to <em>left-right</em>, the <span class="math notranslate nohighlight">\(y\)</span>-dimension to refer to <em>anterior-posterior</em> and the <span class="math notranslate nohighlight">\(z\)</span>-dimension to refer to <em>inferior-superior</em>. The origin of these axes corresponds to the coordinates <span class="math notranslate nohighlight">\(\left[0, 0, 0\right]\)</span>, and is usually placed within the brain at a specific anatomical point. This means the coordinates can be considered millimetre shifts relative to the origin. For instance, a negative <span class="math notranslate nohighlight">\(x\)</span> coordinate means the <em>left</em> side of the brain and a positive <span class="math notranslate nohighlight">\(x\)</span> coordinates means the <em>right</em> side of the brain. This is illustrated in <code class="xref std std-numref docutils literal notranslate"><span class="pre">axis-orientation-fig</span></code>.</p>
+<figure class="align-default" id="axis-orientation-fig">
+<a class="reference internal image-reference" href="_images/axis-orientation.png"><img alt="_images/axis-orientation.png" src="_images/axis-orientation.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-text">Illustration of the interpretation of the axes in world-space.</span><a class="headerlink" href="#axis-orientation-fig" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This alternative world-space coordinate system is shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">world-space-fig</span></code>. Compared to the voxel-space image, we can see that the scale of the axes has changed to reflect the fact that, in this image, 1 voxel is equivalent to 3mm. In addition, the origin has been placed in its typical location of the <a class="reference external" href="https://en.wikipedia.org/wiki/Anterior_commissure">anterior commissure</a>, meaning the coordinate system now has a meaningful anatomical interpretation. For example, the coordinates shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">world-space-fig</span></code> can be interpreted as 60mm posterior and 30mm superior to the anterior commissure.</p>
+<figure class="align-default" id="world-space-fig">
+<a class="reference internal image-reference" href="_images/world-space-func.png"><img alt="_images/world-space-func.png" src="_images/world-space-func.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-text">Example of a functional slice displayed in world-space.</span><a class="headerlink" href="#world-space-fig" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="viewing-different-spaces-in-spm">
+<h2>Viewing Different Spaces in SPM<a class="headerlink" href="#viewing-different-spaces-in-spm" title="Permalink to this heading">#</a></h2>
+<p>The video below will introduce the SPM Display facility which can be used to view images in both voxel-space and world-space. Click <a class="reference external" href="https://livemanchesterac.sharepoint.com/:u:/r/sites/UOM-FBMH-MSc-NCCN/Shared%20Documents/PCHN62141%20Functional%20Neuroanatomy/Learning%20Materials/Asynchronous/Week%204/2.%20Image%20Processing/Data/image_processing_display_spaces_anat.nii?csf=1&amp;amp;web=1&amp;amp;e=Hr2nEh?download=1">here</a> to download the example image used in the video.</p>
+<div style="max-width: 1280px"><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><iframe src="https://livemanchesterac.sharepoint.com/sites/UOM-FBMH-MSc-NCCN/_layouts/15/embed.aspx?UniqueId=29faf4f4-b426-4ccb-8ee3-eb0606d49e3c&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen title="SPMDisplaySpaces-notitle.mov" style="border:none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; height: 100%; max-width: 100%;"></iframe></div></div></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "jupyter_matlab_kernel"
+        },
+        kernelOptions: {
+            name: "jupyter_matlab_kernel",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'jupyter_matlab_kernel'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-matrix-indices">Data Matrix Indices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#voxel-space">Voxel-space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#world-space">World-space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-different-spaces-in-spm">Viewing Different Spaces in SPM</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr Martyn McFarquhar
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
