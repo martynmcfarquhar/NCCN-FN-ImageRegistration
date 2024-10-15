@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '1.reg-problem';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -399,8 +401,11 @@ document.write(`
 <p>For all these cases, we can break the problem down into registering <em>two</em> images. This is our general framework for registration, where the goal is to move one image to align with the other. The image we move is known as the <em>source</em> image and the image we keep stationary is known as the <em>target</em> or <em>reference</em> image.</p>
 <section id="motivation-for-registration">
 <h2>Motivation for Registration<a class="headerlink" href="#motivation-for-registration" title="Link to this heading">#</a></h2>
-<p>To motivate the need for registration, consider the scans shown below. Clearly they are not aligned because the anatomy of the brain does not overlap.</p>
-<iframe src="misaligned.html" width="800" height="600" frameborder="0" scrolling="no" title=""></iframe></section>
+<p>To motivate the need for registration, consider the scans shown below.</p>
+<iframe src="misaligned.html" width="800" height="600" frameborder="0" scrolling="no" title=""></iframe><p>Clearly these images are not aligned because the anatomy of the brain does not overlap. In this situation, our aim is to collate information across the two images. In order to do this, there are two necessary conditions.</p>
+<p>The first is that some sort of <em>mapping</em> exists between the points in one image and the points in the other. If the images are identical in size, this is simply an identity mapping where we use the same coordinates for the two images. This will be the case if the images are generated from the same scanning sequence, or if one image has been <em>resampled</em> to the dimensions of the other image (as discussed last week). Alternatively, we can map between the images using world-space and the matrix <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>, as also explored last week.</p>
+<p>However, mapping between two images is useless if the anatomy of the brain is not in the same position within each image. As such, the second condition is that the images are <em>aligned</em> or <em>registered</em>. To see this in context, consider reading two images into <code class="docutils literal notranslate"><span class="pre">MATLAB</span></code></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
