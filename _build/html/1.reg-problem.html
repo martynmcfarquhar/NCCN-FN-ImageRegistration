@@ -379,6 +379,15 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="the-image-registration-problem">
 <h1>The Image Registration Problem<a class="headerlink" href="#the-image-registration-problem" title="Link to this heading">#</a></h1>
+<p>Image registration is a core topic of computational anatomy that is applicable across a wide range of contexts. For example, image registration is necessary when:</p>
+<ul class="simple">
+<li><p>Aligning fMRI volumes to correct for motion.</p></li>
+<li><p>Aligning longitudinal datasets together to assess change over time.</p></li>
+<li><p>Aligning data from different scanners and different sites in multi-centre research.</p></li>
+<li><p>Aligning data with a template or atlas to localise results and make comparisons across studies.</p></li>
+</ul>
+<p>For all these cases, we can break the problem down into registering <em>two</em> images. This is our general framework for registration, where the goal is to move one image to align with the other. The image we move is known as the <em>source</em> image and the image we keep stationary is known as the <em>target</em> or <em>reference</em> image.</p>
+<p>To motivate the need for registration, consider the scans shown below. Clearly they are not aligned because the anatomy of the brain does not overlap.</p>
 <iframe src="misaligned.html" width="800" height="600" frameborder="0" scrolling="no" title=""></iframe></section>
 
     <script type="text/x-thebe-config">
