@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Voxel-space and World-space &#8212; Image Registration</title>
   
@@ -29,33 +28,35 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '2.voxel-world-space';</script>
@@ -393,10 +394,10 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="voxel-space-and-world-space">
-<h1>Voxel-space and World-space<a class="headerlink" href="#voxel-space-and-world-space" title="Permalink to this heading">#</a></h1>
+<h1>Voxel-space and World-space<a class="headerlink" href="#voxel-space-and-world-space" title="Link to this heading">#</a></h1>
 <p>In the first part of this lesson we are going to be focusing on <em>spatial transformations</em>. We will spend more time discussing this form of image processing as spatial methods are relevant to a much wider variety of analysis steps. Spatial transformations are also where more errors will occur, and so warrant more of our attention.</p>
 <section id="data-matrix-indices">
-<h2>Data Matrix Indices<a class="headerlink" href="#data-matrix-indices" title="Permalink to this heading">#</a></h2>
+<h2>Data Matrix Indices<a class="headerlink" href="#data-matrix-indices" title="Link to this heading">#</a></h2>
 <p>We can conceptualise an MRI image as a 3D matrix (like a big cube), where we can refer to any voxel within the cube using an index along each dimension. Typically we refer to these dimensions as <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span> and <span class="math notranslate nohighlight">\(z\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> corresponds to the <em>row</em>, <span class="math notranslate nohighlight">\(y\)</span> corresponds to the <em>column</em> and <span class="math notranslate nohighlight">\(z\)</span> corresponds to the <em>slice</em>. An index into an image is therefore a <em>triplet</em> of values that indicates how far along each of the dimensions we need to travel in order to find the value we want.</p>
 <p>As an example, the <code class="docutils literal notranslate"><span class="pre">MATLAB</span></code> code below shows the process of loading an image (which you can download from <a class="reference external" href="https://livemanchesterac.sharepoint.com/:u:/r/sites/UOM-FBMH-MSc-NCCN/Shared%20Documents/PCHN62141%20Functional%20Neuroanatomy/Learning%20Materials/Asynchronous/Week%204/2.%20Image%20Processing/Data/example_image.nii?csf=1&amp;amp;web=1&amp;amp;e=Haernk&amp;amp;download=1">here</a>) and then extracting a value using the voxel coordinates <span class="math notranslate nohighlight">\(x = 180\)</span>, <span class="math notranslate nohighlight">\(y = 180\)</span> and <span class="math notranslate nohighlight">\(z = 110\)</span>. This tells <code class="docutils literal notranslate"><span class="pre">MATLAB</span></code> that we want to travel <span class="math notranslate nohighlight">\(180\)</span> voxels along the <span class="math notranslate nohighlight">\(x\)</span> dimension, <span class="math notranslate nohighlight">\(180\)</span> voxels along the <span class="math notranslate nohighlight">\(y\)</span> dimension, <span class="math notranslate nohighlight">\(110\)</span> voxels along the <span class="math notranslate nohighlight">\(z\)</span> dimension and then extract the value found at that location.</p>
 <div class="cell docutils container">
@@ -429,7 +430,7 @@ document.write(`
 </div>
 </section>
 <section id="voxel-space">
-<h2>Voxel-space<a class="headerlink" href="#voxel-space" title="Permalink to this heading">#</a></h2>
+<h2>Voxel-space<a class="headerlink" href="#voxel-space" title="Link to this heading">#</a></h2>
 <p>The approach of indexing the data matrix directly can be thought of as representing the image in <em>voxel-space</em>. This means that the voxels themselves form the coordinate system. The image dimensions are given in voxels, we index the image using voxel coordinates and the origin of the coordinate system is simply the first voxel saved in the image file.</p>
 <p>Of note is that the orientation of the image is based on the storage-order of the data on disk. This is usually dictated by the scanner and can differ from image to image. As such, there are no guarantees about which direction in the image correspond to which dimensions of the data matrix. For example, if we display a single slice of the example image we loaded above, we get</p>
 <div class="cell docutils container">
@@ -450,31 +451,31 @@ document.write(`
 <figure class="align-default" id="voxel-space-fig">
 <a class="reference internal image-reference" href="_images/voxel-space-func.png"><img alt="_images/voxel-space-func.png" src="_images/voxel-space-func.png" style="width: 700px;" /></a>
 <figcaption>
-<p><span class="caption-text">Example of a functional slice displayed in voxel-space.</span><a class="headerlink" href="#voxel-space-fig" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Example of a functional slice displayed in voxel-space.</span><a class="headerlink" href="#voxel-space-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Voxel-space is the most basic coordinate system we can use with an image and is the only way we can index the actual values inside the data matrix. This means that no matter what we do, we always need to get back to voxel-space eventually. However, this does not mean that we have to work in voxel-space exclusively.</p>
 </section>
 <section id="world-space">
-<h2>World-space<a class="headerlink" href="#world-space" title="Permalink to this heading">#</a></h2>
+<h2>World-space<a class="headerlink" href="#world-space" title="Link to this heading">#</a></h2>
 <p>As mentioned already, one issue with the voxel-space representation is that we have no correspondence between the dimensions of the data matrix and the different physical directions in an image. For instance, the anatomical example from above had the <span class="math notranslate nohighlight">\(x\)</span>-dimension running <em>anterior-posterior</em>, whereas as the functional example has the <span class="math notranslate nohighlight">\(x\)</span>-dimension running <em>left-right</em>. Another issue is that a voxel is not a standard unit of measurement and can be a variety of sizes depending on the scanning sequence. If you say that an image of an object is 100 voxels wide, that information says nothing about how big that object is in the real world. As such, a coordinate systems based on voxels is only useful when our image processing does not need to know about the physical location of the voxels in space. Generally speaking, most filtering operations can be performed in voxel-space, but any spatial transformations need more knowledge about the physical sizes of voxels as well as the physical interpretation of the image dimensions.</p>
 <p>In order to get information about the physical location of a voxel in space, we can convert the voxel coordinates to millimetre coordinates. We will cover how this is done later in the lesson, but for now just note that by doing this we effectively transform the coordinate system of the image into a real-world representation. Traditionally, we consider the <span class="math notranslate nohighlight">\(x\)</span>-dimension to refer to <em>left-right</em>, the <span class="math notranslate nohighlight">\(y\)</span>-dimension to refer to <em>anterior-posterior</em> and the <span class="math notranslate nohighlight">\(z\)</span>-dimension to refer to <em>inferior-superior</em>. The origin of these axes corresponds to the coordinates <span class="math notranslate nohighlight">\(\left[0, 0, 0\right]\)</span>, and is usually placed within the brain at a specific anatomical point. This means the coordinates can be considered millimetre shifts relative to the origin. For instance, a negative <span class="math notranslate nohighlight">\(x\)</span> coordinate means the <em>left</em> side of the brain and a positive <span class="math notranslate nohighlight">\(x\)</span> coordinates means the <em>right</em> side of the brain. This is illustrated in <code class="xref std std-numref docutils literal notranslate"><span class="pre">axis-orientation-fig</span></code>.</p>
 <figure class="align-default" id="axis-orientation-fig">
 <a class="reference internal image-reference" href="_images/axis-orientation.png"><img alt="_images/axis-orientation.png" src="_images/axis-orientation.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-text">Illustration of the interpretation of the axes in world-space.</span><a class="headerlink" href="#axis-orientation-fig" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Illustration of the interpretation of the axes in world-space.</span><a class="headerlink" href="#axis-orientation-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>This alternative world-space coordinate system is shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">world-space-fig</span></code>. Compared to the voxel-space image, we can see that the scale of the axes has changed to reflect the fact that, in this image, 1 voxel is equivalent to 3mm. In addition, the origin has been placed in its typical location of the <a class="reference external" href="https://en.wikipedia.org/wiki/Anterior_commissure">anterior commissure</a>, meaning the coordinate system now has a meaningful anatomical interpretation. For example, the coordinates shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">world-space-fig</span></code> can be interpreted as 60mm posterior and 30mm superior to the anterior commissure.</p>
 <figure class="align-default" id="world-space-fig">
 <a class="reference internal image-reference" href="_images/world-space-func.png"><img alt="_images/world-space-func.png" src="_images/world-space-func.png" style="width: 700px;" /></a>
 <figcaption>
-<p><span class="caption-text">Example of a functional slice displayed in world-space.</span><a class="headerlink" href="#world-space-fig" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Example of a functional slice displayed in world-space.</span><a class="headerlink" href="#world-space-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="viewing-different-spaces-in-spm">
-<h2>Viewing Different Spaces in SPM<a class="headerlink" href="#viewing-different-spaces-in-spm" title="Permalink to this heading">#</a></h2>
+<h2>Viewing Different Spaces in SPM<a class="headerlink" href="#viewing-different-spaces-in-spm" title="Link to this heading">#</a></h2>
 <p>The video below will introduce the SPM Display facility which can be used to view images in both voxel-space and world-space. Click <a class="reference external" href="https://livemanchesterac.sharepoint.com/:u:/r/sites/UOM-FBMH-MSc-NCCN/Shared%20Documents/PCHN62141%20Functional%20Neuroanatomy/Learning%20Materials/Asynchronous/Week%204/2.%20Image%20Processing/Data/image_processing_display_spaces_anat.nii?csf=1&amp;amp;web=1&amp;amp;e=Hr2nEh?download=1">here</a> to download the example image used in the video.</p>
 <div style="max-width: 1280px"><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><iframe src="https://livemanchesterac.sharepoint.com/sites/UOM-FBMH-MSc-NCCN/_layouts/15/embed.aspx?UniqueId=29faf4f4-b426-4ccb-8ee3-eb0606d49e3c&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen title="SPMDisplaySpaces-notitle.mov" style="border:none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; height: 100%; max-width: 100%;"></iframe></div></div></section>
 </section>
