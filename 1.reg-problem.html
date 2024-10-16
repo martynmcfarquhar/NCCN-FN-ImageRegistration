@@ -466,12 +466,12 @@ document.write(`
 <span class="nb">imagesc</span><span class="p">(</span><span class="n">anat</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">));</span><span class="w"> </span>
 <span class="n">hold</span><span class="w"> </span><span class="s">on</span><span class="p">;</span><span class="w"> </span>
 <span class="nb">imagesc</span><span class="p">(</span><span class="n">func</span><span class="p">(:,:,</span><span class="mi">20</span><span class="p">),</span><span class="s">&#39;AlphaData&#39;</span><span class="p">,</span><span class="mf">0.4</span><span class="p">);</span>
-<span class="n">colormap</span><span class="w"> </span><span class="s">gray</span><span class="p">;</span>
+<span class="n">colormap</span><span class="w"> </span><span class="s">hot</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/a16b997405442bb06e5f352487a8ccef2abbbc0e7ce71668aa832be353e550ae.png" src="_images/a16b997405442bb06e5f352487a8ccef2abbbc0e7ce71668aa832be353e550ae.png" />
+<img alt="_images/a58e88b4caae13e5119da9cc10816267c3f616d0da71dca2ce2daf77b70ee0ab.png" src="_images/a58e88b4caae13e5119da9cc10816267c3f616d0da71dca2ce2daf77b70ee0ab.png" />
 </div>
 </div>
 <p>Clearly, the functional image needs scaling in order to match the dimensions of the anatomical image. This requires some form of <em>interpolation</em>, which we can achieve using the <code class="docutils literal notranslate"><span class="pre">spm_reslice()</span></code> function. You will not need to call this from code usually, but you can see how to do it below.</p>
@@ -526,12 +526,12 @@ Completed                               :          15:57:22 - 16/10/2024
 <span class="nb">imagesc</span><span class="p">(</span><span class="n">anat</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">));</span><span class="w"> </span>
 <span class="n">hold</span><span class="w"> </span><span class="s">on</span><span class="p">;</span><span class="w"> </span>
 <span class="nb">imagesc</span><span class="p">(</span><span class="n">ifunc</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">),</span><span class="s">&#39;AlphaData&#39;</span><span class="p">,</span><span class="mf">0.4</span><span class="p">);</span>
-<span class="n">colormap</span><span class="w"> </span><span class="s">gray</span><span class="p">;</span>
+<span class="n">colormap</span><span class="w"> </span><span class="s">hot</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2567ad6dda31c9742bf057708ee08acdfac0fb9e481d5854eac3e0cb34dc1c07.png" src="_images/2567ad6dda31c9742bf057708ee08acdfac0fb9e481d5854eac3e0cb34dc1c07.png" />
+<img alt="_images/810e4152871e1894f876ba24c3648ea2f54bdc8222d556feea5d212b26d26c41.png" src="_images/810e4152871e1894f876ba24c3648ea2f54bdc8222d556feea5d212b26d26c41.png" />
 </div>
 </div>
 <p>So even though we solved the initial problem of different image dimensions, because the images are not registered, simply resampling one image into the space of the other does not automatically cause the anatomy to align. The result for this example is that voxel <span class="math notranslate nohighlight">\([87,182,127]\)</span> corresponds to the anterior cingulate in the anatomical image, but is actually <em>outside the brain</em> in the functional image. In order to resolve this, we need to <em>register</em> the images first. How we do that is the topic of this lesson.</p>
