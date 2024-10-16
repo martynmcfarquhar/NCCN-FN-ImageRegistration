@@ -459,19 +459,21 @@ document.write(`
     64    64    40
 </pre></body></html></div></div>
 </div>
-<p>We can see the issue if we try to draw these images on top of each other.</p>
+<p>We can see the issue if we try to draw these images on top of each other with our voxel of interest highlighted by crosshairs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">figure</span><span class="p">;</span>
-<span class="nb">imagesc</span><span class="p">(</span><span class="n">anat</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">));</span><span class="w"> </span>
+<span class="nb">imagesc</span><span class="p">(</span><span class="n">anat</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">)</span><span class="o">&#39;</span><span class="p">);</span>
 <span class="n">hold</span><span class="w"> </span><span class="s">on</span><span class="p">;</span><span class="w"> </span>
-<span class="nb">imagesc</span><span class="p">(</span><span class="n">func</span><span class="p">(:,:,</span><span class="mi">20</span><span class="p">),</span><span class="s">&#39;AlphaData&#39;</span><span class="p">,</span><span class="mf">0.8</span><span class="p">);</span>
+<span class="nb">imagesc</span><span class="p">(</span><span class="n">func</span><span class="p">(:,:,</span><span class="mi">20</span><span class="p">)</span><span class="o">&#39;</span><span class="p">,</span><span class="s">&#39;AlphaData&#39;</span><span class="p">,</span><span class="mf">0.8</span><span class="p">);</span>
+<span class="nb">set</span><span class="p">(</span><span class="nb">gca</span><span class="p">,</span><span class="s">&#39;YDir&#39;</span><span class="p">,</span><span class="s">&#39;normal&#39;</span><span class="p">);</span>
 <span class="n">colormap</span><span class="w"> </span><span class="s">jet</span><span class="p">;</span>
+<span class="n">drawcrosshair</span><span class="p">(</span><span class="s">&#39;Position&#39;</span><span class="p">,[</span><span class="mi">87</span><span class="w"> </span><span class="mi">182</span><span class="p">],</span><span class="s">&#39;Color&#39;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/10709bd37c0a64a9afe3e2a52da43f88fb5ec0c45bf947ea25476ee7f116a432.png" src="_images/10709bd37c0a64a9afe3e2a52da43f88fb5ec0c45bf947ea25476ee7f116a432.png" />
+<img alt="_images/c06c221e6ad70a77a0252e1339a99200e498dfa6317332c8b7ddd0b523a728a8.png" src="_images/c06c221e6ad70a77a0252e1339a99200e498dfa6317332c8b7ddd0b523a728a8.png" />
 </div>
 </div>
 <p>Clearly, the functional image needs scaling in order to match the dimensions of the anatomical image. This requires some form of <em>interpolation</em>, which we can achieve using the <code class="docutils literal notranslate"><span class="pre">spm_reslice()</span></code> function. You will not need to call this from code usually, but you can see how to do it below.</p>
@@ -493,7 +495,7 @@ Completed                               :          15:57:22 - 16/10/2024
 </div>
 </div>
 </div>
-<p>If we now read in the interpolated functional data, we can see that both images are now the same size.</p>
+<p>A new file called <code class="docutils literal notranslate"><span class="pre">rsub-01_task-flanker_run-1_bold.nii</span></code> will now be saved, containing the functional data resampled into the space of the anatomical data. If we now read in the interpolated functional data, we can see that both images are now the same size.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">ifunc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">spm_data_read</span><span class="p">(</span><span class="s">&#39;rsub-01_task-flanker_run-1_bold.nii,1&#39;</span><span class="p">);</span>
@@ -519,22 +521,24 @@ Completed                               :          15:57:22 - 16/10/2024
 <div class="cell_output docutils container">
 <div class="output text_html"><html><body><pre>ans = 6</pre></body></html></div></div>
 </div>
-<p>However, just because we have managed to create a mapping between these two images (by resampling the functional to same dimensions as the anatomical) does not immediately mean that the same locations will align. We can see this if we now overlay the two images again</p>
+<p>This would seem to be a job well done. However, just because we have managed to create a mapping between these two images (by resampling the functional to the same dimensions as the anatomical) does not immediately mean that the same locations will align. We can see this if we now overlay the two images again</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">figure</span><span class="p">;</span>
-<span class="nb">imagesc</span><span class="p">(</span><span class="n">anat</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">));</span><span class="w"> </span>
+<span class="nb">imagesc</span><span class="p">(</span><span class="n">anat</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">)</span><span class="o">&#39;</span><span class="p">);</span>
 <span class="n">hold</span><span class="w"> </span><span class="s">on</span><span class="p">;</span><span class="w"> </span>
-<span class="nb">imagesc</span><span class="p">(</span><span class="n">ifunc</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">),</span><span class="s">&#39;AlphaData&#39;</span><span class="p">,</span><span class="mf">0.6</span><span class="p">);</span>
+<span class="nb">imagesc</span><span class="p">(</span><span class="n">ifunc</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">)</span><span class="o">&#39;</span><span class="p">,</span><span class="s">&#39;AlphaData&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">);</span>
+<span class="nb">set</span><span class="p">(</span><span class="nb">gca</span><span class="p">,</span><span class="s">&#39;YDir&#39;</span><span class="p">,</span><span class="s">&#39;normal&#39;</span><span class="p">);</span>
 <span class="n">colormap</span><span class="w"> </span><span class="s">jet</span><span class="p">;</span>
+<span class="n">drawcrosshair</span><span class="p">(</span><span class="s">&#39;Position&#39;</span><span class="p">,[</span><span class="mi">87</span><span class="w"> </span><span class="mi">182</span><span class="p">],</span><span class="s">&#39;Color&#39;</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5b45da9e145d327d08c2389333707d65eb3be03d29f7a3d7bf10d7d430a91b8f.png" src="_images/5b45da9e145d327d08c2389333707d65eb3be03d29f7a3d7bf10d7d430a91b8f.png" />
+<img alt="_images/66320f3e0b91872222ea01222632bd3d7a5c499d92add70318864d5102fa04ce.png" src="_images/66320f3e0b91872222ea01222632bd3d7a5c499d92add70318864d5102fa04ce.png" />
 </div>
 </div>
-<p>So even though we solved the initial problem of different image dimensions, because the images are not registered, simply resampling one image into the space of the other does not automatically cause the anatomy to align. The result for this example is that voxel <span class="math notranslate nohighlight">\([87,182,127]\)</span> corresponds to the anterior cingulate in the anatomical image, but is actually <em>outside the brain</em> in the functional image. In order to resolve this, we need to <em>register</em> the images first. How we do that is the topic of this lesson.</p>
+<p>So even though we solved the initial problem of different image dimensions, because the images are not registered, simply resampling one image into the space of the other does not automatically cause the anatomy to align. The result for this example is that voxel <span class="math notranslate nohighlight">\([87,182,127]\)</span> corresponds to the anterior cingulate in the anatomical image, but is actually <em>outside the brain</em> in the functional image. As such, even though the location <span class="math notranslate nohighlight">\([87,182,127]\)</span> now exists in <em>both</em> images, it does not represent the same anatomical location. In order to resolve this, we need to <em>register</em> the images first, which is the focus of this lesson.</p>
 </section>
 </section>
 
