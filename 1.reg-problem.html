@@ -463,17 +463,18 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">figure</span><span class="p">;</span>
-<span class="nb">imagesc</span><span class="p">(</span><span class="n">anat</span><span class="p">(:,:,</span><span class="mi">128</span><span class="p">));</span><span class="w"> </span>
+<span class="nb">imagesc</span><span class="p">(</span><span class="n">anat</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">));</span><span class="w"> </span>
 <span class="n">hold</span><span class="w"> </span><span class="s">on</span><span class="p">;</span><span class="w"> </span>
-<span class="nb">imagesc</span><span class="p">(</span><span class="n">func</span><span class="p">(:,:,</span><span class="mi">20</span><span class="p">),</span><span class="s">&#39;AlphaData&#39;</span><span class="p">,</span><span class="mf">0.6</span><span class="p">);</span>
+<span class="nb">imagesc</span><span class="p">(</span><span class="n">func</span><span class="p">(:,:,</span><span class="mi">20</span><span class="p">),</span><span class="s">&#39;AlphaData&#39;</span><span class="p">,</span><span class="mf">0.4</span><span class="p">);</span>
+<span class="n">colormap</span><span class="w"> </span><span class="s">gray</span><span class="p">;</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e16c297b92dca39c9741bbecc7ae1d72afc439ca941f28d351a1fca3586e9b97.png" src="_images/e16c297b92dca39c9741bbecc7ae1d72afc439ca941f28d351a1fca3586e9b97.png" />
+<img alt="_images/a16b997405442bb06e5f352487a8ccef2abbbc0e7ce71668aa832be353e550ae.png" src="_images/a16b997405442bb06e5f352487a8ccef2abbbc0e7ce71668aa832be353e550ae.png" />
 </div>
 </div>
-<p>Clearly, the functional image needs scaling in order to match the dimensions of the anatomical image. This requires some form of <em>interpolation</em>, which we can achieve using the <code class="docutils literal notranslate"><span class="pre">spm_reslice()</span></code> function. You won’t ever need to call this from code usually, but you can see how to do it below.</p>
+<p>Clearly, the functional image needs scaling in order to match the dimensions of the anatomical image. This requires some form of <em>interpolation</em>, which we can achieve using the <code class="docutils literal notranslate"><span class="pre">spm_reslice()</span></code> function. You will not need to call this from code usually, but you can see how to do it below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">files</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;sub-01_T1w.nii&#39;</span><span class="p">,</span><span class="s">&#39;sub-01_task-flanker_run-1_bold.nii,1&#39;</span><span class="p">};</span>
@@ -485,9 +486,9 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SPM12: spm_reslice (v7141)                         15:45:42 - 16/10/2024
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SPM12: spm_reslice (v7141)                         15:57:20 - 16/10/2024
 ========================================================================
-Completed                               :          15:45:43 - 16/10/2024
+Completed                               :          15:57:22 - 16/10/2024
 </pre></div>
 </div>
 </div>
@@ -518,6 +519,22 @@ Completed                               :          15:45:43 - 16/10/2024
 <div class="cell_output docutils container">
 <div class="output text_html"><html><body><pre>ans = 6</pre></body></html></div></div>
 </div>
+<p>However, just because we have managed to create a mapping between these two images (by resampling the functional to same dimensions as the anatomical) does not immediately mean that the same locations will align. We can see this if we now overlay the two images again</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="nb">figure</span><span class="p">;</span>
+<span class="nb">imagesc</span><span class="p">(</span><span class="n">anat</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">));</span><span class="w"> </span>
+<span class="n">hold</span><span class="w"> </span><span class="s">on</span><span class="p">;</span><span class="w"> </span>
+<span class="nb">imagesc</span><span class="p">(</span><span class="n">ifunc</span><span class="p">(:,:,</span><span class="mi">127</span><span class="p">),</span><span class="s">&#39;AlphaData&#39;</span><span class="p">,</span><span class="mf">0.4</span><span class="p">);</span>
+<span class="n">colormap</span><span class="w"> </span><span class="s">gray</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2567ad6dda31c9742bf057708ee08acdfac0fb9e481d5854eac3e0cb34dc1c07.png" src="_images/2567ad6dda31c9742bf057708ee08acdfac0fb9e481d5854eac3e0cb34dc1c07.png" />
+</div>
+</div>
+<p>So even though we solved the initial problem of different image dimensions, because the images are not registered, simply resampling one image into the space of the other does not automatically cause the anatomy to align. The result for this example is that voxel <span class="math notranslate nohighlight">\([87,182,127]\)</span> corresponds to the anterior cingulate in the anatomical image, but is actually <em>outside the brain</em> in the functional image. In order to resolve this, we need to <em>register</em> the images first. How we do that is the topic of this lesson.</p>
 </section>
 </section>
 
