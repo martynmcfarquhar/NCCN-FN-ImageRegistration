@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Mapping Coordinates &#8212; Image Registration</title>
   
@@ -28,35 +29,35 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '2.mapping-coords';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -353,7 +354,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -369,6 +372,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-mathbf-q-matrix-for-mapping">Using the <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> Matrix for Mapping</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -379,7 +390,74 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="mapping-coordinates">
-<h1>Mapping Coordinates<a class="headerlink" href="#mapping-coordinates" title="Link to this heading">#</a></h1>
+<h1>Mapping Coordinates<a class="headerlink" href="#mapping-coordinates" title="Permalink to this heading">#</a></h1>
+<p>As mentioned in the previous section, our aim with registration is to find a coordinate mapping between the <em>source</em> image and the <em>target</em> image. Given our discussions last week about using affine transformation matrices to covert coordinates, an obvious place to start is with registration methods that use affine methods to map between images. In this section, we will expand on the content from last week to see how we can use the matrices in the image headers to map the coordinates of one image into the coordinates of another image.</p>
+<p>Note that registration using affine transformations is known as <em>linear</em> registration. This means we do not have free reign to align the images however we like. We cannot bend any element of the image and we cannot use different transformations in different parts of the brain. Instead, we are restricted to only being able to <em>translate</em>, <em>rotate</em>, <em>scale</em> or <em>shear</em> the images to get them to line-up. For some registration tasks, such as motion correction, this makes sense, whereas for other tasks we may need something more flexible. At the end of this lesson, we will discuss an alternative approach known as <em>non-linear</em> registration, that offers greater flexibility at a cost of greater complexity.</p>
+<section id="using-the-mathbf-q-matrix-for-mapping">
+<h2>Using the <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> Matrix for Mapping<a class="headerlink" href="#using-the-mathbf-q-matrix-for-mapping" title="Permalink to this heading">#</a></h2>
+<p>Last week, we saw how to define a matrix <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> that can map between the voxel coordinates in an image and a transformed version of those coordinates, using a transformation matrix<span class="math notranslate nohighlight">\(\mathbf{T}\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Q} = (\mathbf{TM})^{-1}\mathbf{M}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> is the voxel-to-world matrix from the image header. We also noted that this works because it turns the voxel coordinates into millimetres, applies the transformation in world-space and then converts the millimetre coordinates back into voxel coordinates. This makes sense because it is more intuitive to transform an image using real-world units, such as millimetres and degrees. Similarly, if we want to map coordinates between two different images, it makes sense to do this in world-space. This is because two images can be different dimensions, resolutions and orientations, yet we can still find the same millimetre location in each one thanks to the matrices in the header. World-space is therefore a <em>common coordinate system</em>, irrespective of the image in question.</p>
+<p>To achieve this, we can adapt the definition of Q to be</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Q} = (\mathbf{TM}_{S})^{-1}\mathbf{M}_{T}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{M}_{S}\)</span> is the header matrix from the <em>source</em> image and <span class="math notranslate nohighlight">\(\mathbf{M}_{T}\)</span> is the header matrix from the <em>target</em> image. So what does this new version of <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> do? If we assume that <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> represents voxel coordinates from the target image, then the operation <span class="math notranslate nohighlight">\(\mathbf{Qx}\)</span> will first transform the voxel coordinates to millimetres using <span class="math notranslate nohighlight">\(\mathbf{M}_{T}\)</span>, then convert the millimetre coordinates to voxel coordinates in the source image using the inverse of <span class="math notranslate nohighlight">\(\mathbf{TM}_{S}\)</span>. So the important point here is that this form of <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> will take voxel coordinates in one image and turn them into voxel coordinates in the other image. This is achieved by matched the images using the same millimetre coordinates in world-space.</p>
+<p>In addition, the definition of <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> above also include a transformation <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> that can be used to adjust for any misalignment between the image. However, when we first collect these images we do not know if any transformation is necessary. As such, we have to start by considering the default mapping between the images. We can do this by setting the matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> to be the identity, which is equivalent to no transformation. If we do this then <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> drops out of the equation and we have</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Q} = (\mathbf{M}_{S})^{-1}\mathbf{M}_{T}
+\]</div>
+<p>which gives us our starting point for image registration.</p>
+<p>As an example, consider the following MATLAB code which loads the header matrices for the functional and anatomical images used in the previous section. The code computes <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> using the definition above. <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> is then used to find out which voxel in the source matches voxel <span class="math notranslate nohighlight">\([87, 182, 127]\)</span> from the target.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">hdr_anat</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">spm_data_hdr_read</span><span class="p">(</span><span class="s">&#39;sub-01_T1w.nii&#39;</span><span class="p">);</span>
+<span class="n">hdr_func</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">spm_data_hdr_read</span><span class="p">(</span><span class="s">&#39;sub-01_task-flanker_run-1_bold.nii,1&#39;</span><span class="p">);</span>
+
+<span class="n">Mt</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">hdr_anat</span><span class="p">.</span><span class="n">mat</span><span class="p">;</span>
+<span class="n">Ms</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">hdr_func</span><span class="p">.</span><span class="n">mat</span><span class="p">;</span>
+
+<span class="n">Q</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">inv</span><span class="p">(</span><span class="n">Ms</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mt</span><span class="p">;</span>
+<span class="n">Q</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">[</span><span class="mi">87</span><span class="w"> </span><span class="mi">182</span><span class="w"> </span><span class="mi">127</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="o">&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><html><body><pre>ans = 4×1 double
+    4.7972
+   48.4056
+   20.1250
+    1.0000
+</pre></body></html></div></div>
+</div>
+<p>According to this calculation, the matching voxel in the source image is <span class="math notranslate nohighlight">\([4.80, 48.41, 20.13]\)</span>.</p>
+<p>To see why, we can calculate the millimetre coordinates for voxel <span class="math notranslate nohighlight">\([87, 182, 127]\)</span> from the target image and the millimetre coordinates for voxel <span class="math notranslate nohighlight">\([4.80, 48.41, 20.13]\)</span> from the source image.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">Mt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">[</span><span class="mi">87</span><span class="w">     </span><span class="mi">182</span><span class="w">     </span><span class="mi">127</span><span class="w">    </span><span class="mi">1</span><span class="p">]</span><span class="o">&#39;</span>
+<span class="n">Ms</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">[</span><span class="mf">4.7972</span><span class="w"> </span><span class="mf">48.4057</span><span class="w"> </span><span class="mf">20.125</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="o">&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><html><body><pre>ans = 4×1 double
+  -83.8313
+   52.0542
+   -1.5000
+    1.0000
+</pre></body></html></div><div class="output text_html"><html><body><pre>ans = 4×1 double
+  -83.8313
+   52.0544
+   -1.5000
+    1.0000
+</pre></body></html></div></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -427,6 +505,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-mathbf-q-matrix-for-mapping">Using the <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> Matrix for Mapping</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
