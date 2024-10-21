@@ -415,12 +415,27 @@ document.write(`
 \]</div>
 <p>which gives us our starting point for image registration.</p>
 <p>As an example, consider the following MATLAB code which loads the header matrices for the functional and anatomical images used in the previous section. The code computes <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> using the definition above. <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> is then used to find out which voxel in the source matches voxel <span class="math notranslate nohighlight">\([87, 182, 127]\)</span> from the target.</p>
-<p>hdr_anat = spm_data_hdr_read(‘sub-01_T1w.nii’);
-hdr_func = spm_data_hdr_read(‘sub-01_task-flanker_run-1_bold.nii,1’);</p>
-<p>Mt = hdr_anat.mat;
-Ms = hdr_func.mat;</p>
-<p>Q = inv(Ms) * Mt;
-Q * [87 182 127 1]’</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">hdr_anat</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">spm_data_hdr_read</span><span class="p">(</span><span class="s">&#39;sub-01_T1w.nii&#39;</span><span class="p">);</span>
+<span class="n">hdr_func</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">spm_data_hdr_read</span><span class="p">(</span><span class="s">&#39;sub-01_task-flanker_run-1_bold.nii,1&#39;</span><span class="p">);</span>
+
+<span class="n">Mt</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">hdr_anat</span><span class="p">.</span><span class="n">mat</span><span class="p">;</span>
+<span class="n">Ms</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">hdr_func</span><span class="p">.</span><span class="n">mat</span><span class="p">;</span>
+
+<span class="n">Q</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">inv</span><span class="p">(</span><span class="n">Ms</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Mt</span><span class="p">;</span>
+<span class="n">Q</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">[</span><span class="mi">87</span><span class="w"> </span><span class="mi">182</span><span class="w"> </span><span class="mi">127</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="o">&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><html><body><pre>ans = 4×1 double
+    4.7972
+   48.4056
+   20.1250
+    1.0000
+</pre></body></html></div></div>
+</div>
 <p>According to this calculation, the matching voxel in the source image is <span class="math notranslate nohighlight">\([4.7972, 48.4056, 20.1250]\)</span>.</p>
 <p>To see why, we can calculate the millimetre coordinates for voxel <span class="math notranslate nohighlight">\([87, 182, 127]\)</span> from the target image and the millimetre coordinates for voxel <span class="math notranslate nohighlight">\([4.7972, 48.4056, 20.1250]\)</span> from the source image.</p>
 <div class="cell docutils container">
