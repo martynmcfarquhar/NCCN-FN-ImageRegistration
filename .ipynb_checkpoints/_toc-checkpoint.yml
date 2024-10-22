@@ -7,3 +7,4 @@ chapters:
 - file: 1.reg-problem
 - file: 2.mapping-coords
 - file: 3.finding-transforms
+- file: 4.applying-transforms

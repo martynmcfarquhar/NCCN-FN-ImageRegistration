@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Transforming Images &#8212; Image Registration</title>
+    <title>Applying Transformations &#8212; Image Registration</title>
   
   
   
@@ -57,11 +57,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '4.transforming-images';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '4.applying-transforms';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Finding the Best Transformation" href="3.finding-transforms.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -124,8 +123,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -181,10 +178,11 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.reg-problem.html">The Image Registration Problem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.mapping-coords.html">Mapping Coordinates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.finding-transforms.html">Finding the Best Transformation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Applying Transformations</a></li>
 </ul>
 
     </div>
@@ -256,7 +254,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F4.transforming-images.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F4.applying-transforms.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -286,7 +284,7 @@
       
       
       
-      <li><a href="_sources/4.transforming-images.ipynb" target="_blank"
+      <li><a href="_sources/4.applying-transforms.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -370,7 +368,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Transforming Images</h1>
+    <h1>Applying Transformations</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,9 +378,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-an-image-in-world-space">Transforming an Image in World-space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-an-image-in-voxel-space">Transforming an Image in Voxel-space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-images-in-spm">Transforming Images in SPM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-registration-using-spm">Image Registration Using <code class="docutils literal notranslate"><span class="pre">SPM</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-registration">Manual Registration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-registration">Automated Registration</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -394,83 +394,16 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="transforming-images">
-<h1>Transforming Images<a class="headerlink" href="#transforming-images" title="Link to this heading">#</a></h1>
-<p>In the previous section, we discussed the principles of affine and rigid-body transformations and saw how converting between voxel-space and world-space can be conceptualised as an affine transformation of the image coordinates. However, the utility of these forms of transforms is not just moving between different spaces, but also in providing a framework for transforming the location of the brain within an image. Generally speaking, because we have a choice of two coordinate spaces, we also have a choice of performing a transformation in <em>world-space</em> or in <em>voxel-space</em>. As we will see, world-space transformations alter the rules for mapping voxels to millimetres, without changing the voxel values. In comparison, voxel-space transformations directly alter the voxels in the image. In this section, we will explore the principles and utility of each type of transformation.</p>
-<section id="transforming-an-image-in-world-space">
-<h2>Transforming an Image in World-space<a class="headerlink" href="#transforming-an-image-in-world-space" title="Link to this heading">#</a></h2>
-<p>One of the main motivating factors behind a world-space representation of an image is so that we can create more intuitive transformations for moving the brain. Generally speaking, transformations in world-space make more sense because we can use real-world units. For instance, we can move the brain back by 3mm and up by 5mm. To do this, we have to combine the <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> matrix from the header with another affine transform matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>. If we use the following as our example <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> matrix</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\mathbf{M} = 
-\begin{bmatrix}
--3 &amp; 0 &amp; 0 &amp;  81  \\ 
- 0 &amp; 3 &amp; 0 &amp; -115 \\ 
- 0 &amp; 0 &amp; 3 &amp; -73  \\
- 0 &amp; 0 &amp; 0 &amp;  1
-\end{bmatrix}
-\end{split}\]</div>
-<p>we can see the original millimetre location of the voxel coordinates <span class="math notranslate nohighlight">\(\mathbf{a} = [20, 20, 20, 1]'\)</span> is given by</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\mathbf{Ma} = 
-\begin{bmatrix} 
- 21 \\
--55 \\ 
--13 \\
-1 
-\end{bmatrix}
-\end{split}\]</div>
-<p>Focusing on the <span class="math notranslate nohighlight">\(y\)</span>-axis, the voxel index of 20 is mapped to -55mm from the origin in world-space. If we wanted to move the image 9mm <em>backwards</em>, we could combine <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> with a transformation matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> that encodes a negative 9mm shift along the <span class="math notranslate nohighlight">\(y\)</span>-axis</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\mathbf{T} = 
-\begin{bmatrix}
- 1 &amp; 0 &amp; 0 &amp;  0 \\ 
- 0 &amp; 1 &amp; 0 &amp; -9 \\ 
- 0 &amp; 0 &amp; 1 &amp;  0 \\
- 0 &amp; 0 &amp; 0 &amp;  1
-\end{bmatrix}
-\end{split}\]</div>
-<p>Pre-multiplying <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> by <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> creates a new matrix that changes how the voxel coordinates are mapped into world-space. So, if we do the following</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\left(\mathbf{TM}\right)\mathbf{a} = 
-\begin{bmatrix} 
- 21 \\
--64 \\ 
--13 \\
-1 
-\end{bmatrix}
-\end{split}\]</div>
-<p>we can see that the voxel coordinate of <span class="math notranslate nohighlight">\(y = 20\)</span> is now mapped to -64mm from the origin, shifting it 9mm further <em>backwards</em>. If we want to make this shift permanent, we can create a new matrix <span class="math notranslate nohighlight">\(\mathbf{M}^{\ast} = \mathbf{TM}\)</span> and then replace the original <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> matrix in the header with <span class="math notranslate nohighlight">\(\mathbf{M}^{\ast}\)</span>. The image is then forever mapped 9mm further backwards in world-space.</p>
-<p>An important point about this process is that it has <em>not</em> altered the voxel data. All we did is change how the voxels coordinates are mapped to millimetre coordinates. In effect, we have changed the rules, but have not done anything to the actual image. Because of this, the image will look no different in voxel-space, but will be moved back 9mm in world-space. This change is somewhat invisible because it will not look like the image has been altered. You would only notice a difference if you saw the image displayed in world-space <em>and</em> had some reference point to compare it with. Typically this reference point is another image, as the point of world-space transforms is often to bring multiple images into alignment without changing the voxel data. This will make more sense next week when we discuss image registration. For now, just try to grasp the idea of world-space transformations, knowing that this will be further contextualised later.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="applying-transformations">
+<h1>Applying Transformations<a class="headerlink" href="#applying-transformations" title="Link to this heading">#</a></h1>
+<section id="image-registration-using-spm">
+<h2>Image Registration Using <code class="docutils literal notranslate"><span class="pre">SPM</span></code><a class="headerlink" href="#image-registration-using-spm" title="Link to this heading">#</a></h2>
+<section id="manual-registration">
+<h3>Manual Registration<a class="headerlink" href="#manual-registration" title="Link to this heading">#</a></h3>
 </section>
-<section id="transforming-an-image-in-voxel-space">
-<h2>Transforming an Image in Voxel-space<a class="headerlink" href="#transforming-an-image-in-voxel-space" title="Link to this heading">#</a></h2>
-<p>As highlighted above, transforming and replacing the header matrix will not alter the voxel data. If we wanted this transformation to change the actual image data, we would need to turn this into a <em>voxel-space</em> transformation. The motivation for this is usually in the context of image registration and so will become clearer next week. The short version is that we usually map between different images in world-space, but once we have transformed the actual image data we do not need to perform this mapping anymore and can work exclusively in voxel-space. Computationally, this is much more efficient because we do not need to keep converting coordinates between different images. You can therefore think of the voxel-space transforming as <em>applying</em> the world-space transformation to the actual data.</p>
-<p>Converting a world-space transformation into a voxel-space transformation can be achieved by defining the following mapping matrix</p>
-<div class="math notranslate nohighlight">
-\[
-\mathbf{Q} = (\mathbf{TM})^{-1}\mathbf{M}.
-\]</div>
-<p><span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> can then be used to change any voxel coordinates in the original image into new voxel coordinates in the transformed image. For instance, using the <span class="math notranslate nohighlight">\(\mathbf{a}\)</span> defined earlier</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\mathbf{Qa} = 
-\begin{bmatrix}
-20 \\
-23 \\
-20 \\
-1
-\end{bmatrix}.
-\end{split}\]</div>
-<p>So, the original voxel coordinate of <span class="math notranslate nohighlight">\(y = 20\)</span> has been transformed into a new voxel coordinate of <span class="math notranslate nohighlight">\(y = 23\)</span>. This works by taking the original voxel coordinates, transforming them into millimetres, applying the transformation in world-space and then transforming the shifted world-space coordinates back into voxels.</p>
-<p>In order to use <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> to actually change the voxel data, we would first create a blank image with the same dimensions as the original image. We would then work through each voxel in the new image and transform the corresponding voxel coordinates using <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>. These transformed coordinates tell us the coordinates of the voxel we should copy from the original image. In the example above, when we get to voxel <span class="math notranslate nohighlight">\([20, 20, 20]\)</span> in the new image we would use <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> to transform these coordinates into <span class="math notranslate nohighlight">\([20, 23, 20]\)</span>. This would tell us that we need to copy the value of voxel <span class="math notranslate nohighlight">\([20, 23, 20]\)</span> from the old image into voxel <span class="math notranslate nohighlight">\([20, 20, 20]\)</span> in the new image. This is conceptualised as a <em>pulling</em> operation, where the original data are pulled into their new locations.</p>
-<p>This process is illustrated in the video below for a rotation operation. For each position in the new image on the left, we take the coordinates and transform them using <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>. This gives the coordinates illustrated in the image on the right. The voxel value associated with this coordinate is copied from the old image into the new image. If the transformation results in coordinates that are out-of-bounds, a value of -1 is inserted into the new image instead.</p>
-<div style="max-width: 1280px"><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><iframe src="https://livemanchesterac.sharepoint.com/sites/UOM-FBMH-MSc-NCCN/_layouts/15/embed.aspx?UniqueId=f519fafa-9b1e-4d90-8cca-9c2b5d731ce2&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen title="Rotate-Image.mp4" style="border:none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; height: 100%; max-width: 100%;"></iframe></div></div></section>
-<section id="transforming-images-in-spm">
-<h2>Transforming Images in SPM<a class="headerlink" href="#transforming-images-in-spm" title="Link to this heading">#</a></h2>
+<section id="automated-registration">
+<h3>Automated Registration<a class="headerlink" href="#automated-registration" title="Link to this heading">#</a></h3>
+</section>
 </section>
 </section>
 
@@ -504,6 +437,15 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="3.finding-transforms.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Finding the Best Transformation</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -520,9 +462,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-an-image-in-world-space">Transforming an Image in World-space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-an-image-in-voxel-space">Transforming an Image in Voxel-space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-images-in-spm">Transforming Images in SPM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-registration-using-spm">Image Registration Using <code class="docutils literal notranslate"><span class="pre">SPM</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-registration">Manual Registration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-registration">Automated Registration</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
