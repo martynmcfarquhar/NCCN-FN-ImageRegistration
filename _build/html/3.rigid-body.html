@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
@@ -29,33 +28,35 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '3.rigid-body';</script>
@@ -392,7 +393,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="rigid-body-transformations">
-<h1>Rigid-body Transformations<a class="headerlink" href="#rigid-body-transformations" title="Permalink to this heading">#</a></h1>
+<h1>Rigid-body Transformations<a class="headerlink" href="#rigid-body-transformations" title="Link to this heading">#</a></h1>
 <p>In the previous section, we introduced the idea of two different coordinates systems we called <em>voxel-space</em> and <em>world-space</em>. In order to use both systems, we need to be able to convert between them. As such, we need to be able to take voxel coordinates and convert them into millimetres, as well as take millimetre coordinates and convert them into voxels.</p>
 <p>Very generally, the ability to transform coordinates from one system into another can be expressed as</p>
 <div class="math notranslate nohighlight">
@@ -428,7 +429,7 @@ document.write(`
 \end{split}\]</div>
 <p>The matrix <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> therefore contains the 12 parameters of the transformation (noticing that we have to add an extra row to make the matrix multiplication work). Multiplying a vector containing our original coordinates by <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> will give us the coordinates transformed into the alternative space. We can also use <span class="math notranslate nohighlight">\(\mathbf{M}^{-1}\)</span> to convert from the transformed coordinates back into the original coordinates using <span class="math notranslate nohighlight">\(\mathbf{a} = \mathbf{M}^{-1}\mathbf{b}\)</span>.</p>
 <section id="affine-transformations">
-<h2>Affine Transformations<a class="headerlink" href="#affine-transformations" title="Permalink to this heading">#</a></h2>
+<h2>Affine Transformations<a class="headerlink" href="#affine-transformations" title="Link to this heading">#</a></h2>
 <p>The parameters in the matrix <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> encode what is known as an <em>affine</em> transformation. The word <a class="reference external" href="https://en.wikipedia.org/wiki/Affine_transformation">affine</a> means that parallel lines remain parallel after transformation. As such, operations such as <em>bending</em> are not allowed. Transformation can therefore only be constructed by combining:</p>
 <ul class="simple">
 <li><p>Translations</p></li>
@@ -440,7 +441,7 @@ document.write(`
 <figure class="align-default" id="affine-fig">
 <a class="reference internal image-reference" href="_images/affine-dark.png"><img alt="_images/affine-dark.png" src="_images/affine-dark.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-text">Illustration of the operations that are allowed when forming an affine transformation.</span><a class="headerlink" href="#affine-fig" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Illustration of the operations that are allowed when forming an affine transformation.</span><a class="headerlink" href="#affine-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>To get a feel for affine transformations, you can play around with the example below. Move the sliders to change the transformation matrix, which is then used to change the coordinates of every pixel in the image.</p>
@@ -521,12 +522,12 @@ q_{x} &amp; 0     &amp; 0     &amp; 0 \\
 <p>Note that we are often interested in transformations that move the brain, without changing its general size or shape. These forms of transformation are known as <em>rigid-body</em> and correspond to a subset of affine transformations that <em>do not</em> include shearing. Furthermore, zooms are only allowed to use the same value of <span class="math notranslate nohighlight">\(q\)</span> for each axis, such that the brain can be scaled up and down, but not stretched or squashed.</p>
 </section>
 <section id="converting-between-voxel-space-and-world-space">
-<h2>Converting Between Voxel-space and World-space<a class="headerlink" href="#converting-between-voxel-space-and-world-space" title="Permalink to this heading">#</a></h2>
+<h2>Converting Between Voxel-space and World-space<a class="headerlink" href="#converting-between-voxel-space-and-world-space" title="Link to this heading">#</a></h2>
 <p>Now that we have seen how affine transformations work, we can get back to the idea of converting between voxel-space and world-space. The key thing to understand is that this conversion is just an affine transformation, consisting of translating, rotating and scaling the axes so they represent millimetres instead of voxels. This process is illustrated in <code class="xref std std-numref docutils literal notranslate"><span class="pre">v2w-affine-fig</span></code>.</p>
 <figure class="align-default" id="v2w-affine-fig">
 <a class="reference internal image-reference" href="_images/voxel-to-world-affine.png"><img alt="_images/voxel-to-world-affine.png" src="_images/voxel-to-world-affine.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-text">Illustration of the affine transformation used to covert between voxel-space and world-space.</span><a class="headerlink" href="#v2w-affine-fig" title="Permalink to this image">#</a></p>
+<p><span class="caption-text">Illustration of the affine transformation used to covert between voxel-space and world-space.</span><a class="headerlink" href="#v2w-affine-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Given this, all we need to convert voxels into millimetres is a suitable <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> matrix. We can then multiply voxel coordinates by <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> and get the corresponding millimetre coordinates, as well as multiply millimetre coordinates by <span class="math notranslate nohighlight">\(\mathbf{M}^{-1}\)</span> and get the corresponding voxel coordinates.</p>
