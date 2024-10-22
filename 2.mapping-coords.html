@@ -412,7 +412,7 @@ document.write(`
 <p>In addition, the definition of <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> above also include a transformation <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> that can be used to adjust for any misalignment between the image. However, when we first collect these images we do not know if any transformation is necessary. As such, we have to start by considering the default mapping between the images. We can do this by setting the matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> to be the identity, which is equivalent to no transformation. If we do this then <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> drops out of the equation and we have</p>
 <div class="math notranslate nohighlight">
 \[
-\mathbf{Q} = (\mathbf{M}_{S})^{-1}\mathbf{M}_{T}
+\mathbf{Q} = \mathbf{M}_{S}^{-1}\mathbf{M}_{T}
 \]</div>
 <p>which gives us our starting point for image registration.</p>
 <p>As an example, consider the following MATLAB code which loads the header matrices for the functional and anatomical images used in the previous section. The code computes <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> using the definition above. <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> is then used to find out which voxel in the source matches voxel <span class="math notranslate nohighlight">\([87, 182, 127]\)</span> from the target.</p>
