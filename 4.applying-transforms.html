@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '4.applying-transforms';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -396,6 +398,14 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="applying-transformations">
 <h1>Applying Transformations<a class="headerlink" href="#applying-transformations" title="Link to this heading">#</a></h1>
+<p>So far in this lesson, we have discussed the general framework for registration, the principles behind creating a coordinate mapping between images, and how we can find the best transformation matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> to improve this mapping. The final step is to decide what to do with the “best” <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> , once the optimisation algorithm has found it.</p>
+<p>Typically there are two choices. The first is to use <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> to transform the header matrix of the source image and the second is to use <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>  to resample the source image into the space of the reference image. These options can be thought of applying the transformation in either <em>world-space</em> or <em>voxel-space</em>. When changing the header of the source image, the voxel data will not change and we will still need to use the <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>  matrix to convert coordinates between the images. However, having used <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>  to redefine how the source image is mapped into world-space, we can now be confident that we will land in the same anatomical location when converting coordinates between the images. As an alternative, when we resample the source image we change its dimensions and orientation to match the reference image. So this time the image data does change and, importantly, we no longer need <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>  to convert between the images. In this instance, there is a one-to-one mapping between the voxels of the images. Both these options are illustrated in <a class="reference internal" href="#vox-world-transf-fig"><span class="std std-numref">Fig. 5</span></a>.</p>
+<figure class="align-default" id="vox-world-transf-fig">
+<a class="reference internal image-reference" href="_images/vox-world-transf.png"><img alt="_images/vox-world-transf.png" src="_images/vox-world-transf.png" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of applying a transformation in world-space (<em>top</em>) and in voxel-space (<em>bottom</em>).</span><a class="headerlink" href="#vox-world-transf-fig" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="image-registration-using-spm">
 <h2>Image Registration Using <code class="docutils literal notranslate"><span class="pre">SPM</span></code><a class="headerlink" href="#image-registration-using-spm" title="Link to this heading">#</a></h2>
 <section id="manual-registration">
