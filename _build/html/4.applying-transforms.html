@@ -380,6 +380,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-transformation-in-world-space">Applying the Transformation in World-space</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-registration-using-spm">Image Registration Using <code class="docutils literal notranslate"><span class="pre">SPM</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-registration">Manual Registration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-registration">Automated Registration</a></li>
@@ -406,6 +407,10 @@ document.write(`
 <p><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of applying a transformation in world-space (<em>top</em>) and in voxel-space (<em>bottom</em>). To make the results of the resampling clear, the anatomical data has been interpolated into the space of the functional data.</span><a class="headerlink" href="#vox-world-transf-fig" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
+<section id="applying-the-transformation-in-world-space">
+<h2>Applying the Transformation in World-space<a class="headerlink" href="#applying-the-transformation-in-world-space" title="Link to this heading">#</a></h2>
+<p>As we saw last week, a transformation matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>  can be applied to the header of any image by replacing the header matrix <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>  with <span class="math notranslate nohighlight">\(\mathbf{M}^{\ast} = \mathbf{TM}\)</span>. This makes the transformation permanent so that the voxels are then forever mapped to a different point in world-space. Again, it is important to recognise that the only thing that has changed is the rules for converting voxel coordinates into millimetre coordinates. The voxel data in the image has not been touched. This means that if you look at an image in voxel-space, you would not know anything had changed. The difference comes when using <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> to map between images in world-space. This is illustrated below with two images that have been registered. Despite their differences in resolution and dimension, the coordinates can still be accurately mapped from one to the other using <span class="math notranslate nohighlight">\(\mathbf{Q} = \mathbf{M}_{T}^{-1}\mathbf{M}_{S}\)</span>.</p>
+</section>
 <section id="image-registration-using-spm">
 <h2>Image Registration Using <code class="docutils literal notranslate"><span class="pre">SPM</span></code><a class="headerlink" href="#image-registration-using-spm" title="Link to this heading">#</a></h2>
 <section id="manual-registration">
@@ -472,6 +477,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-transformation-in-world-space">Applying the Transformation in World-space</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-registration-using-spm">Image Registration Using <code class="docutils literal notranslate"><span class="pre">SPM</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manual-registration">Manual Registration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-registration">Automated Registration</a></li>
