@@ -8,3 +8,6 @@ chapters:
 - file: 2.mapping-coords
 - file: 3.finding-transforms
 - file: 4.applying-transforms
+- file: 5.registering-different-subs
+- file: 6.non-linear-reg
+- file: 7.summary

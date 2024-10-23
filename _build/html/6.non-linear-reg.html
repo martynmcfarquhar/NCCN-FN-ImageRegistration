@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Image Filtering &#8212; Image Registration</title>
+    <title>Non-linear Registration &#8212; Image Registration</title>
   
   
   
@@ -57,9 +57,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '6.filtering';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '6.non-linear-reg';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Summary" href="7.summary.html" />
+    <link rel="prev" title="Registering Images from Different Subjects" href="5.registering-different-subs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +124,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -179,11 +179,14 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="1.reg-problem.html">The Image Registration Problem</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.mapping-coords.html">Mapping Coordinates</a></li>
 <li class="toctree-l1"><a class="reference internal" href="3.finding-transforms.html">Finding the Best Transformation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="4.applying-transforms.html">Applying Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5.registering-different-subs.html">Registering Images from Different Subjects</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Non-linear Registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7.summary.html">Summary</a></li>
 </ul>
 
     </div>
@@ -255,7 +258,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F6.filtering.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F6.non-linear-reg.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -285,7 +288,7 @@
       
       
       
-      <li><a href="_sources/6.filtering.ipynb" target="_blank"
+      <li><a href="_sources/6.non-linear-reg.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -367,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Image Filtering</h1>
+    <h1>Non-linear Registration</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -381,8 +384,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="image-filtering">
-<h1>Image Filtering<a class="headerlink" href="#image-filtering" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="non-linear-registration">
+<h1>Non-linear Registration<a class="headerlink" href="#non-linear-registration" title="Link to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -415,6 +418,24 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="5.registering-different-subs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Registering Images from Different Subjects</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="7.summary.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Summary</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
