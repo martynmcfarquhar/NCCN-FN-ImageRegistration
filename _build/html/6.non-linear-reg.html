@@ -56,6 +56,8 @@
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '6.non-linear-reg';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -358,7 +360,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -374,6 +378,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deformation-fields">Deformation Fields</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -385,6 +397,12 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="non-linear-registration">
 <h1>Non-linear Registration<a class="headerlink" href="#non-linear-registration" title="Permalink to this heading">#</a></h1>
+<p>As we saw in the last section, affine transformations alone are not enough to accurately register individual subjects to a common template space. In order to move beyond simple affine approaches, we have to consider methods where we can move each voxel <em>independently</em>. These are known as <em>non-linear</em> registration techniques. Generally, these methods are more complex than affine methods and so we will keep the detail presented here limited. However, much of the image registration theory remains relevant. We still have a <em>reference</em> image (the MNI templates) that we want to align our <em>source</em> image to. In order to do so, we still have to estimate some form of <em>mapping</em> between the source and the reference images, and this will require optimisation using some form of <em>objective function</em>. We then need to <em>resample</em> the source image to move it into standard space. The main difference is that our mapping is no longer given by a 12-parameter affine transformation. Instead, our mapping is based on a <em>deformation field</em>.​​​</p>
+<section id="deformation-fields">
+<h2>Deformation Fields<a class="headerlink" href="#deformation-fields" title="Permalink to this heading">#</a></h2>
+<p>At its most basic, a deformation field is an image where each voxel value indicates how to move that specific voxel when warping to standard space. There are therefore three of these images, one for the <span class="math notranslate nohighlight">\(x\)</span>-axis, <span class="math notranslate nohighlight">\(y\)</span>-axis and <span class="math notranslate nohighlight">\(z\)</span>-axis. In <code class="docutils literal notranslate"><span class="pre">SPM</span></code>, the deformation field images contain the new millimetre coordinates for each voxel after warping. So the <span class="math notranslate nohighlight">\(X\)</span> deformation field contains all the new <span class="math notranslate nohighlight">\(x\)</span>-coordinates, the <span class="math notranslate nohighlight">\(Y\)</span> deformation field contains all the new <span class="math notranslate nohighlight">\(y\)</span>-coordinates and the <span class="math notranslate nohighlight">\(Z\)</span> deformation field contains all the new <span class="math notranslate nohighlight">\(z\)</span>-coordinates. So rather than using the header matrices to calculate the millimetre coordinates, we can do it directly by looking at the deformation fields. We can then convert these into voxel coordinates in the source image to give us the values we need to copy into our new normalised image. Of course, given how flexible the non-linear approach is, this will almost always need some form of interpolation.</p>
+<p>An examples of a deformation field for the <span class="math notranslate nohighlight">\(x\)</span>-axis is shown below. As you navigate around the image, compare the <span class="math notranslate nohighlight">\(x\)</span>-coordinate in red to the voxel value in white. The <span class="math notranslate nohighlight">\(x\)</span>-coordinate gives the original world-space location of that voxel and the voxel value in white gives the <em>new</em> world-space coordinate where the voxel must be moved in order to warp the image to standard space.</p>
+<iframe src="deform-x.html" width="800" height="600" frameborder="0" scrolling="no" title=""></iframe></section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -441,6 +459,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deformation-fields">Deformation Fields</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
