@@ -388,6 +388,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularisation">Regularisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-versus-non-linear-registration">Linear Versus Non-linear Registration</a></li>
 </ul>
             </nav>
         </div>
@@ -430,6 +431,20 @@ document.write(`
 <a class="reference internal image-reference" href="_images/regularisation.png"><img alt="_images/regularisation.png" src="_images/regularisation.png" style="width: 800px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 11 </span><span class="caption-text">Illustration of a how a reduction in regularisation affects the warping.</span><a class="headerlink" href="#regularisation-fig" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Reducing the degree of regularisation can cause some extreme results in terms of what the non-linear warping does to the image. Messing with the regularisation is therefore not often advisable, unless you find your images are being excessively warped and you need to increase the penalty. However, what this does demonstrate is that non-linear registration is a balance between minimising the cost function, but without producing extreme warps. This balance is, in part, why perfect non-linear registration will almost never be achievable.</p>
+</div>
+</section>
+<section id="linear-versus-non-linear-registration">
+<h2>Linear Versus Non-linear Registration<a class="headerlink" href="#linear-versus-non-linear-registration" title="Permalink to this heading">#</a></h2>
+<p>To appreciate the differences between linear and non-linear methods, <a class="reference internal" href="#nonlin-norm-fig"><span class="std std-numref">Fig. 12</span></a> shows the results of warping the same brain we saw earlier using a non-linear approach. As we can see, the correspondence with the MNI template is not perfect, but it is much better than we achieved using an affine approach alone.</p>
+<figure class="align-default" id="nonlin-norm-fig">
+<a class="reference internal image-reference" href="_images/nonlin_norm.gif"><img alt="_images/nonlin_norm.gif" src="_images/nonlin_norm.gif" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Illustration of the correspondance between the MNI template and an image that has been non-linearly warped.</span><a class="headerlink" href="#nonlin-norm-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -504,6 +519,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularisation">Regularisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-versus-non-linear-registration">Linear Versus Non-linear Registration</a></li>
 </ul>
   </nav></div>
 
