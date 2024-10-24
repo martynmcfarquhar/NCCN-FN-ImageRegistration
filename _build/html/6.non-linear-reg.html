@@ -389,6 +389,8 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularisation">Regularisation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-versus-non-linear-registration">Linear Versus Non-linear Registration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unified-segmentation">Unified segmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisation-in-spm">Normalisation in <code class="docutils literal notranslate"><span class="pre">SPM</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -440,13 +442,21 @@ document.write(`
 </section>
 <section id="linear-versus-non-linear-registration">
 <h2>Linear Versus Non-linear Registration<a class="headerlink" href="#linear-versus-non-linear-registration" title="Permalink to this heading">#</a></h2>
-<p>To appreciate the differences between linear and non-linear methods, <a class="reference internal" href="#nonlin-norm-fig"><span class="std std-numref">Fig. 12</span></a> shows the results of warping the same brain we saw earlier using a non-linear approach. As we can see, the correspondence with the MNI template is not perfect, but it is much better than we achieved using an affine approach alone.</p>
+<p>To appreciate the differences between linear and non-linear methods, <a class="reference internal" href="#nonlin-norm-fig"><span class="std std-numref">Fig. 12</span></a> shows the results of warping the same brain we saw earlier using a non-linear approach. As we can see, the correspondence with the MNI template is not perfect, but it is much better than we achieved using an affine approach.</p>
 <figure class="align-default" id="nonlin-norm-fig">
 <a class="reference internal image-reference" href="_images/nonlin_norm.gif"><img alt="_images/nonlin_norm.gif" src="_images/nonlin_norm.gif" style="width: 800px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 12 </span><span class="caption-text">Illustration of the correspondance between the MNI template and an image that has been non-linearly warped.</span><a class="headerlink" href="#nonlin-norm-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+</section>
+<section id="unified-segmentation">
+<h2>Unified segmentation<a class="headerlink" href="#unified-segmentation" title="Permalink to this heading">#</a></h2>
+<p>As a final point for this section, it is worth noting that the current approach taken by SPM for spatial normalisation is to combine it with a procedure for segmenting structural MR images into their different tissue classes. This approach is known as <em>unified segmentation</em> and was introduced by <a class="reference external" href="https://www.fil.ion.ucl.ac.uk/~karl/Unified%20segmentation.pdf">Ashburner &amp; Friston (2005)</a>. The non-segmentation version of normalisation is still available in <code class="docutils literal notranslate"><span class="pre">SPM</span></code> as <code class="docutils literal notranslate"><span class="pre">Old</span> <span class="pre">Normalise</span></code>, but there is little reason to use it beyond historical curiosity.</p>
+</section>
+<section id="normalisation-in-spm">
+<h2>Normalisation in <code class="docutils literal notranslate"><span class="pre">SPM</span></code><a class="headerlink" href="#normalisation-in-spm" title="Permalink to this heading">#</a></h2>
+<p>The video below will demonstrate how to perform normalisation using <code class="docutils literal notranslate"><span class="pre">SPM12</span></code>. This example uses the anatomical dataset that can be downloaded from <a class="reference external" href="https://livemanchesterac.sharepoint.com/:u:/r/sites/UOM-FBMH-MSc-NCCN/Shared%20Documents/PCHN62141%20Functional%20Neuroanatomy/Learning%20Materials/Asynchronous/Week%205/1.%20Image%20Registration/Data/anat.nii?csf=1&amp;amp;web=0&amp;amp;e=TBvVB1&amp;amp;download=1">here</a>.</p>
 </section>
 </section>
 
@@ -520,6 +530,8 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularisation">Regularisation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-versus-non-linear-registration">Linear Versus Non-linear Registration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unified-segmentation">Unified segmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisation-in-spm">Normalisation in <code class="docutils literal notranslate"><span class="pre">SPM</span></code></a></li>
 </ul>
   </nav></div>
 
