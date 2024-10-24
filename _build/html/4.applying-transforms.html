@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Applying Transformations &#8212; Image Registration</title>
   
@@ -28,35 +29,33 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '4.applying-transforms';</script>
@@ -403,27 +402,27 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="applying-transformations">
-<h1>Applying Transformations<a class="headerlink" href="#applying-transformations" title="Link to this heading">#</a></h1>
+<h1>Applying Transformations<a class="headerlink" href="#applying-transformations" title="Permalink to this heading">#</a></h1>
 <p>So far in this lesson, we have discussed the general framework for registration, the principles behind creating a coordinate mapping between images, and how we can find the best transformation matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> to improve this mapping. The final step is to decide what to do with the “best” <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> , once the optimisation algorithm has found it.</p>
 <p>Typically there are two choices. The first is to use <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> to transform the header matrix of the source image and the second is to use <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>  to resample the source image into the space of the reference image. These options can be thought of applying the transformation in either <em>world-space</em> or <em>voxel-space</em>. When changing the header of the source image, the voxel data will not change and we will still need to use the <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>  matrix to convert coordinates between the images. However, having used <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>  to redefine how the source image is mapped into world-space, we can now be confident that we will land in the same anatomical location when converting coordinates between the images. As an alternative, when we resample the source image we change its dimensions and orientation to match the reference image. So this time the image data does change and, importantly, we no longer need <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span>  to convert between the images. In this instance, there is a one-to-one mapping between the voxels of the images. Both these options are illustrated in <a class="reference internal" href="#vox-world-transf-fig"><span class="std std-numref">Fig. 5</span></a>.</p>
 <figure class="align-default" id="vox-world-transf-fig">
 <a class="reference internal image-reference" href="_images/vox-world-transf.png"><img alt="_images/vox-world-transf.png" src="_images/vox-world-transf.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of applying a transformation in world-space (<em>top</em>) and in voxel-space (<em>bottom</em>). To make the results of the resampling clear, the anatomical data has been interpolated into the space of the functional data.</span><a class="headerlink" href="#vox-world-transf-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Illustration of applying a transformation in world-space (<em>top</em>) and in voxel-space (<em>bottom</em>). To make the results of the resampling clear, the anatomical data has been interpolated into the space of the functional data.</span><a class="headerlink" href="#vox-world-transf-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="applying-the-transformation-in-world-space">
-<h2>Applying the Transformation in World-space<a class="headerlink" href="#applying-the-transformation-in-world-space" title="Link to this heading">#</a></h2>
+<h2>Applying the Transformation in World-space<a class="headerlink" href="#applying-the-transformation-in-world-space" title="Permalink to this heading">#</a></h2>
 <p>As we saw last week, a transformation matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>  can be applied to the header of any image by replacing the header matrix <span class="math notranslate nohighlight">\(\mathbf{M}\)</span>  with <span class="math notranslate nohighlight">\(\mathbf{M}^{\ast} = \mathbf{TM}\)</span>. This makes the transformation permanent so that the voxels are then forever mapped to a different point in world-space. Again, it is important to recognise that the only thing that has changed is the rules for converting voxel coordinates into millimetre coordinates. The voxel data in the image has not been touched. This means that if you look at an image in voxel-space, you would not know anything had changed. The difference comes when using <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> to map between images in world-space. This is illustrated in <a class="reference internal" href="#good-reg-fig"><span class="std std-numref">Fig. 6</span></a> with two images that have been registered. Despite their differences in resolution and dimension, the coordinates can still be accurately mapped from one to the other using <span class="math notranslate nohighlight">\(\mathbf{Q} = \mathbf{M}_{S}^{-1}\mathbf{M}_{T}\)</span>.</p>
 <figure class="align-default" id="good-reg-fig">
 <a class="reference internal image-reference" href="_images/good_reg.gif"><img alt="_images/good_reg.gif" src="_images/good_reg.gif" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Example of how coordinates can be accurately mapped across images of different dimensions and resolutions once they have been registered in world-space.</span><a class="headerlink" href="#good-reg-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Example of how coordinates can be accurately mapped across images of different dimensions and resolutions once they have been registered in world-space.</span><a class="headerlink" href="#good-reg-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="applying-the-transformation-in-voxel-space">
-<h2>Applying the Transformation in Voxel-space<a class="headerlink" href="#applying-the-transformation-in-voxel-space" title="Link to this heading">#</a></h2>
+<h2>Applying the Transformation in Voxel-space<a class="headerlink" href="#applying-the-transformation-in-voxel-space" title="Permalink to this heading">#</a></h2>
 <p>As we saw last week, a <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> matrix can be used to resample one image into the space of another. This is thought of as a pulling operation, where we:</p>
 <ol class="arabic simple">
 <li><p>Start with a blank image the same dimensions as the reference image</p></li>
@@ -439,20 +438,20 @@ document.write(`
 <figure class="align-default" id="good-reg-resamp-fig">
 <a class="reference internal image-reference" href="_images/good_reg_resample.gif"><img alt="_images/good_reg_resample.gif" src="_images/good_reg_resample.gif" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Illusration of resampling one image into the space of the other, using their world-space alignment. In this example, the anatomical data have been resampled to match the functional data for the purpose of making the transformation clear.</span><a class="headerlink" href="#good-reg-resamp-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Illusration of resampling one image into the space of the other, using their world-space alignment. In this example, the anatomical data have been resampled to match the functional data for the purpose of making the transformation clear.</span><a class="headerlink" href="#good-reg-resamp-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="image-registration-using-spm">
-<h2>Image Registration Using <code class="docutils literal notranslate"><span class="pre">SPM</span></code><a class="headerlink" href="#image-registration-using-spm" title="Link to this heading">#</a></h2>
+<h2>Image Registration Using <code class="docutils literal notranslate"><span class="pre">SPM</span></code><a class="headerlink" href="#image-registration-using-spm" title="Permalink to this heading">#</a></h2>
 <p>We have now spent a lot of time talking about the theory of linear registration. We are now going to move on to the practical side of performing registration within <code class="docutils literal notranslate"><span class="pre">SPM</span></code>. In this section, we will explore some of the registration options available and you can have a go at running some of the registration steps yourself. For all examples in this section, we will be using the following <a class="reference external" href="https://livemanchesterac.sharepoint.com/:u:/r/sites/UOM-FBMH-MSc-NCCN/Shared%20Documents/PCHN62141%20Functional%20Neuroanatomy/Learning%20Materials/Asynchronous/Week%205/1.%20Image%20Registration/Data/func.nii?csf=1&amp;amp;web=0&amp;amp;e=J5qLzt&amp;amp;download=1">functional</a> and <a class="reference external" href="https://livemanchesterac.sharepoint.com/:u:/r/sites/UOM-FBMH-MSc-NCCN/Shared%20Documents/PCHN62141%20Functional%20Neuroanatomy/Learning%20Materials/Asynchronous/Week%205/1.%20Image%20Registration/Data/anat.nii?csf=1&amp;amp;web=0&amp;amp;e=V2fUZN&amp;amp;download=1">anatomical</a> images.</p>
 <section id="manual-registration">
-<h3>Manual Registration<a class="headerlink" href="#manual-registration" title="Link to this heading">#</a></h3>
+<h3>Manual Registration<a class="headerlink" href="#manual-registration" title="Permalink to this heading">#</a></h3>
 <p>As mentioned earlier, we can give automated registration algorithms the best chance of success by using images that are already roughly aligned. In the video below, we will see how to assess and improve the default registration between two images using <code class="docutils literal notranslate"><span class="pre">SPM</span></code>.</p>
 <div style="max-width: 1280px"><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><iframe src="https://livemanchesterac.sharepoint.com/sites/UOM-FBMH-MSc-NCCN/_layouts/15/embed.aspx?UniqueId=d0d27cfc-b1b6-4975-b7a9-0cfff5d5208c&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen title="spm-manual-registration.mov" style="border:none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; height: 100%; max-width: 100%;"></iframe></div></div>
 </section>
 <section id="automated-registration">
-<h3>Automated Registration<a class="headerlink" href="#automated-registration" title="Link to this heading">#</a></h3>
+<h3>Automated Registration<a class="headerlink" href="#automated-registration" title="Permalink to this heading">#</a></h3>
 <p>Once we are happy that we have given the automated algorithms good starting positions, we can turn to using the automated registration procedures themselves. In the video below, we will see how to use the main automated registration tools in <code class="docutils literal notranslate"><span class="pre">SPM</span></code>.</p>
 <div style="max-width: 1280px"><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;"><iframe src="https://livemanchesterac.sharepoint.com/sites/UOM-FBMH-MSc-NCCN/_layouts/15/embed.aspx?UniqueId=04529bac-9c1d-48d3-9f72-fb9e3947a7f4&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" width="1280" height="720" frameborder="0" scrolling="no" allowfullscreen title="spm-automated-reg.mov" style="border:none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; height: 100%; max-width: 100%;"></iframe></div></div>
 </section>

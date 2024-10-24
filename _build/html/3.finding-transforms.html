@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Finding the Best Transformation &#8212; Image Registration</title>
   
@@ -28,35 +29,33 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.4cbf315f70debaebd550c87a6162cf0f.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '3.finding-transforms';</script>
@@ -402,7 +401,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="finding-the-best-transformation">
-<h1>Finding the Best Transformation<a class="headerlink" href="#finding-the-best-transformation" title="Link to this heading">#</a></h1>
+<h1>Finding the Best Transformation<a class="headerlink" href="#finding-the-best-transformation" title="Permalink to this heading">#</a></h1>
 <p>In the previous section, we established that we can register two images together by creating a mapping</p>
 <div class="math notranslate nohighlight">
 \[
@@ -411,10 +410,10 @@ document.write(`
 <p>where <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> is some affine transformation that renders the anatomical alignment between the images as good as possible. We could approach finding the best <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> via manual registration of the images, but this would soon get impractical for large numbers of subjects. As such, not only are we looking for the best <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> we can find, but we are also looking for a way to find it <em>automatically</em> using a computer.</p>
 <p>In order to do this, we are going to need some way of quantifying what we mean by <em>best</em>. This means we need some numeric value that tells us how good the alignment between the images is. We can then try different transformations in <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>, recalculate this value and see if the registration has improved or not. In theory, we could just keep doing this until no changes we make to <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> makes the alignment any better. At this point, we assume we have found the best <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> and stop.</p>
 <section id="objective-functions">
-<h2>Objective functions<a class="headerlink" href="#objective-functions" title="Link to this heading">#</a></h2>
+<h2>Objective functions<a class="headerlink" href="#objective-functions" title="Permalink to this heading">#</a></h2>
 <p>In order to measure how well-aligned two images are, we make use of an <em>objective function</em>. This is an equation that uses the voxel values from both images to calculate a number that tells us how well-registered the images are. Depending on the function, our aim is to find a <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> that makes this number as <em>big</em> or as <em>small</em> as possible. Most imaging software provides a choice of several different objectives, each of which has their uses and limitations. We will go through some of the main ones available in <code class="docutils literal notranslate"><span class="pre">SPM</span></code> below.</p>
 <section id="least-squares">
-<h3>Least-squares<a class="headerlink" href="#least-squares" title="Link to this heading">#</a></h3>
+<h3>Least-squares<a class="headerlink" href="#least-squares" title="Permalink to this heading">#</a></h3>
 <p>One of the most basic objective functions we can use is least-squares. This is based on adding up the differences between the voxel values of the two images. These differences are squared to prevent positive and negative differences cancelling out in the sum, as formalised in the equation below</p>
 <div class="math notranslate nohighlight">
 \[
@@ -424,33 +423,37 @@ c = \sum_{v=1}^{n}(T_{v} - S_{v})^{2}
 <p>One big advantage of the least-squares function is that it is very fast to calculate. However, a disadvantage is that it is only suitable for <em>within-modality</em> registration. As such, if we want to register two BOLD fMRI images, or two T1-weighted images, this approach will work well. However, if we wanted to register an fMRI image to a T1 image, then this cost function will perform poorly. In <code class="docutils literal notranslate"><span class="pre">SPM</span></code>, least-squares is mainly used for fast motion correction and is not available as an option elsewhere.</p>
 </section>
 <section id="information-theory">
-<h3>Information Theory<a class="headerlink" href="#information-theory" title="Link to this heading">#</a></h3>
+<h3>Information Theory<a class="headerlink" href="#information-theory" title="Permalink to this heading">#</a></h3>
 <p>In the early days of image registration, cost functions tended to be simple metrics such as least-squares. However, it was soon discovered that more flexible cost functions could be derived using the principles of <em>information theory</em>. Although the full foundations of information theory are beyond the scope of this lesson (see <a class="reference external" href="https://www.librarysearch.manchester.ac.uk/permalink/44MAN_INST/bofker/alma992975877309801631">Stone (2015)</a> if you want to learn more), the aim here is to try and give a flavour of the theory so you can see why it is helpful for image registration problems.</p>
 <p>Within information theory there is a key concept known as <em>entropy</em>, which measures randomness or uncertainty. When applied to an image, entropy is similar in spirit to variance, as the greater the  variety of intensities, the larger the entropy becomes. This is because the image gets less predictable. As such, entropy measures where an image is on the scale of being perfectly <em>predictable</em> to completely <em>unpredictable</em>. This can be seen in <a class="reference internal" href="#entropy-fig"><span class="std std-numref">Fig. 2</span></a>, where <span class="math notranslate nohighlight">\(H(A)\)</span> indicates the entropy of a perfectly predictable image (where all voxel values are the same), a brain image and an image of random noise. Below the images are histograms of the intensity values in the image. These are used in the calculation of entropy as they reflect the probability of different values occurring in the image. The more <em>structure</em> there is in the histogram, the more predictable the image and the lower the entropy.</p>
 <figure class="align-default" id="entropy-fig">
 <a class="reference internal image-reference" href="_images/entropy.png"><img alt="_images/entropy.png" src="_images/entropy.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Illustration of entropy for different images.</span><a class="headerlink" href="#entropy-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Illustration of entropy for different images.</span><a class="headerlink" href="#entropy-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>When we have multiple images we can calculate a value known as <em>joint entropy</em>. This indicates the amount of uncertainty when we consider both images together. The more that one image is able to predict the other, the smaller this value becomes. If the two images were identical then we could perfectly predict one from the other and the joint entropy would be 0. As such, the more misaligned the images become, the more the joint entropy would increase. As we saw above, this concept of <em>predictability</em> is tied to the concept of a histogram. When dealing with joint entropy, we use a <em>joint histogram</em>, where the values indicate the co-occurrance of certain combinations of intensities across the two images. For example, <a class="reference internal" href="#joint-hist-fig"><span class="std std-numref">Fig. 3</span></a> shows joint histograms from two images after applying rotations that make the alignment worse. The colours within the histogram reflect the height of the bars. As such, you can think of a joint histogram like viewing a mountain range from the top-down, where the heights of the mountain are indicated by how bright the colour is. As we can see, there is less structure and the histogram becomes more “smeary”. However, the important point is that joint-entropy is calculated using the probabilities expressed in these histograms, rather than directly comparing the intensity values of the images. As such, it can be used for <em>within-modality</em> and <em>between-modality</em> registration problems.</p>
+<p>When we have multiple images we can calculate a value known as <em>joint entropy</em>. This indicates the amount of uncertainty when we consider both images together. The more that one image is able to predict the other, the smaller this value becomes. If the two images were identical then we could perfectly predict one from the other and the joint entropy would be 0. As such, the more misaligned the images become, the more the joint entropy would increase. As we saw above, this concept of <em>predictability</em> is tied to the concept of a histogram. When dealing with joint entropy, we use a <em>joint histogram</em>, where the values indicate the co-occurrance of certain combinations of intensities across the two images. For example, <a class="reference internal" href="#joint-hist-fig"><span class="std std-numref">Fig. 3</span></a> shows joint histograms from two images after applying rotations that make the alignment worse. The colours within the histogram reflect the height of the bars. As such, you can think of a joint histogram like viewing a mountain range from the top-down, where the heights of the mountain are indicated by how bright the colour is. As we can see, there is less structure and the histogram becomes more “smeary”.</p>
 <figure class="align-default" id="joint-hist-fig">
 <a class="reference internal image-reference" href="_images/joint-hist.png"><img alt="_images/joint-hist.png" src="_images/joint-hist.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of joint-histograms for two images through different degrees of rotation that makes the alignment worse.</span><a class="headerlink" href="#joint-hist-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Illustration of joint-histograms for two images through different degrees of rotation that makes the alignment worse.</span><a class="headerlink" href="#joint-hist-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The most important point about joint-entropy is that it is calculated using the <em>probabilities</em> expressed in the joint-histograms, rather than directly comparing the intensity values of the images. As such, it can be used for both within-modality <em>and</em> between-modality registration problems.</p>
+</div>
 <p>At this point, it may seem reasonable to use joint-entropy as the objective function. Although there have been papers using joint-entropy in the past (see <a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/11516708/">Jenkinson &amp; Smith (2001)</a> for some discussion), <code class="docutils literal notranslate"><span class="pre">SPM</span></code> instead chooses to use a closely related value called <em>mutual information</em>. The main thing to note is that mutual information reflects the amount of information that you can learn about Image B by first observing Image A. In other words, it tells us how much uncertainty about Image B is <em>reduced</em> after observing Image A. If A and B are completely unrelated then knowing something about A tells us nothing about B and the mutual information is 0. Alternatively, if A and B are the same image then observing A tells us everything about B and the mutual information is at its maximum. Given that we can learn more about B if A and B are aligned, mutual information will increase as registration improves. Mutual information therefore provides an alternative objective function, noting that a <em>normalised</em> form of mutual information is often used in practise as evidence suggests that it performs better in a wider variety of cases and is less sensitive to the degree of image overlap (see <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0031320398000910">Studholme <em>et al.</em>, 1999</a>).</p>
 </section>
 </section>
 <section id="optimisation">
-<h2>Optimisation<a class="headerlink" href="#optimisation" title="Link to this heading">#</a></h2>
+<h2>Optimisation<a class="headerlink" href="#optimisation" title="Permalink to this heading">#</a></h2>
 <p>Once we have defined a suitable objective function, we need some way of searching through many possible values for <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> to see which one produces the smallest or largest function value. This is where we get into the world of optimisation algorithms. Understanding how these forms of algorithm work in any sort of detail is far beyond the scope of this course. As such, the main thing to know is that these algorithms have a principled way of searching through lots and lots of possibilities for our transformation <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>. They use the result of the objective function to make decisions about how to change <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> to try and make the value smaller or bigger. Once the algorithm thinks it cannot make tany improvements to the objective function value, it stops.</p>
 <p>To understand this a little more, imagine that we could only change two transformation parameters. For the sake of argument, let us make these the millimetre translations along the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axes. The situation faced by optimisation is that across all the possible values of these translations, there is only one combination that will give us the the desired value of the objective function. In the case of <em>minimisation</em> the objective function is usually referred to as a <em>cost function</em>. The smallest possible value of the cost function (called the <em>global minimum</em>) is potentially surrounded by many other peaks and troughs that the algorithm has to navigate. This can be seen visually in <a class="reference internal" href="#param-space-fig"><span class="std std-numref">Fig. 4</span></a>.</p>
 <figure class="align-default" id="param-space-fig">
 <a class="reference internal image-reference" href="_images/param-space.png"><img alt="_images/param-space.png" src="_images/param-space.png" style="width: 800px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the concept of a parameter space, with the global minimum and a local minimum highlighted.</span><a class="headerlink" href="#param-space-fig" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Illustration of the concept of a parameter space, with the global minimum and a local minimum highlighted.</span><a class="headerlink" href="#param-space-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In this situation, what makes finding the global minimum so difficult is that the algorithm cannot see the landscape of possible values. As such, it must explore blind, building up a picture of the mountains and valleys little-by-little. What we need is for the algorithm to be able to explore this landscape thoroughly enough that it can deduce where the deepest valley is, but without taking an impractical amount of time to do so.</p>
