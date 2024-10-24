@@ -383,7 +383,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deformation-fields">Deformation Fields</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deformation-fields">Deformation Fields</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-deformation-fields">Creating Deformation Fields</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularisation">Regularisation</a></li>
 </ul>
             </nav>
         </div>
@@ -406,6 +410,22 @@ document.write(`
 <p class="admonition-title">Important</p>
 <p>Because the deformation field defines a warping in world-space, it can be applied to <em>any</em> image that is registered with the source image. This will become important when we get get to fMRI pre-processing, as it is typical to use an aligned anatomical scan to estimate the warping, before appplying the resultant deformation field to the functional images. As such, a deformation field is <em>reuseable</em>, so long as the images are aligned in world-space.</p>
 </div>
+<section id="creating-deformation-fields">
+<h3>Creating Deformation Fields<a class="headerlink" href="#creating-deformation-fields" title="Permalink to this heading">#</a></h3>
+<p>The first step in creating a deformation field is to align the source and the target using an affine approach, in order to get the images as close as possible. So even when performing non-linear registration, the algorithm always starts by doing the best job it can with an affine transformation. As such, everything said earlier in this lesson about making sure the linear registration performs well also applies here. Issues with optimisation also remain the same, so making sure the images are as well-aligned as possible beforehand is always a good idea.</p>
+<p>Next, an optimisation algorithm is used to estimate the warping needed to match the images. However, unlike an affine transformation where there are (at most) 12 parameters, non-linear registration can have <em>thousands</em> of parameters to optimise. How this is done is somewhat beyond the scope of the lesson, however, we can gain some intuition by looking at a deformation field in 1D. In <a class="reference internal" href="#deform-1d-fig"><span class="std std-numref">Fig. 10</span></a> we can see a plot of a single row (shown in blue) of the <span class="math notranslate nohighlight">\(X\)</span> deformation field. A slice has been chosen where all the voxels originally has an x-coordinate of 0mm. The orange line shows the new millimetre coordinates for all voxels from this row, indicating that they will all be shifted by different amounts to the right.</p>
+<figure class="align-default" id="deform-1d-fig">
+<a class="reference internal image-reference" href="images/deform-1d.gif"><img alt="images/deform-1d.gif" src="images/deform-1d.gif" style="width: 800px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Illustration of a deformation field in 1D.</span><a class="headerlink" href="#deform-1d-fig" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This orange line is what the non-linear registration estimates. It does this by taking a whole bunch of cosines of different frequencies, weighting each frequency and then summing them to create these lines. The optimisation tries to find the weights (known as the <em>coefficients</em>) that lead to a line that represent the best shift in the image coordinates to fit the template image. As with linear registration, this is about finding the weights that minimise a cost function, which for non-linear registration is usually <em>least-squares</em>. As such, it is typical to have multiple MNI templates available, such as a T1, T2 and EPI for normalising images from different modalities.</p>
+</section>
+</section>
+<section id="regularisation">
+<h2>Regularisation<a class="headerlink" href="#regularisation" title="Permalink to this heading">#</a></h2>
+<p>An important element of non-linear techniques is making sure that the degree of warping applied to the images is sensible. What we do not want is to end up with biologically implausible brains that have been severely warped to suit the whims of the optimisation algorithm. As such, non-linear algorithms usually come with a way of penalising too much warping. This is known as regularisation. In SPM, this is done using the bending energy of the warp. The more extreme the bending, the larger the difference it has to make to the cost function to be allowed. In practise, this means that biologically implausible warps should be penalised and not allowed to happen. The consequences of reducing the amount of regularisation is shown below.</p>
 </section>
 </section>
 
@@ -473,7 +493,11 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deformation-fields">Deformation Fields</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deformation-fields">Deformation Fields</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-deformation-fields">Creating Deformation Fields</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regularisation">Regularisation</a></li>
 </ul>
   </nav></div>
 
